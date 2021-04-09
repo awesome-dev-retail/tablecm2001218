@@ -1,9 +1,9 @@
-import React from 'react';
+import React from "react";
 
 const AuthCheck = (props: any) => {
-    return (
-            props.children
-    )
-}
+	return (
+		props.children
+	);
+};
 
-export default AuthCheck
+export default AuthCheck;
