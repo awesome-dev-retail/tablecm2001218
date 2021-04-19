@@ -10,6 +10,7 @@ const LoginPage = () => {
 		dispatch(loginToServer({username: "1241", password: null}));
 	};
 
+
 	return (
 		<div className={styles.LoginContainer}>
 			<h2>Login Page</h2>

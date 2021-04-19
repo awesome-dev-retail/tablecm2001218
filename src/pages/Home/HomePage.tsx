@@ -1,8 +1,9 @@
 import React from "react";
+import language from "../../configs/language"
 
 const HomePage = () => {
 	return (
-		<h2>Home</h2>
+		<h2>{language.home}</h2>
 	);
 };
 
