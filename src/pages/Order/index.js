@@ -63,7 +63,7 @@ const Home = () => {
 
   return (
     <div className="home-page-container">
-      {/* <Header></Header> */}
+      <Header></Header>
       <main className="main">
         {/* {!showTableInfo ? ( */}
         <ShopInfo></ShopInfo>

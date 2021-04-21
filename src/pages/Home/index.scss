@@ -1,248 +1,248 @@
-.home-page-container {
-  .header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background: #fff;
-    // padding: 1.5rem 2rem;
-    padding: 15px 20px;
-    box-shadow: 0 2px 4px -4px black;
+// .home-page-container {
+// .header {
+//   display: flex;
+//   align-items: center;
+//   justify-content: space-between;
+//   background: #fff;
+//   // padding: 1.5rem 2rem;
+//   padding: 15px 20px;
+//   box-shadow: 0 2px 4px -4px black;
 
-    font-size: 20px;
-    // font-size: 2rem;
-    font-weight: bold;
-    .anticon {
-      margin-right: 10px;
-      font-size: 22px;
-      cursor: pointer;
+//   font-size: 20px;
+//   // font-size: 2rem;
+//   font-weight: bold;
+//   .anticon {
+//     margin-right: 10px;
+//     font-size: 22px;
+//     cursor: pointer;
+//   }
+//   > div:last-of-type {
+//     .anticon {
+//       margin-right: 20px;
+//       font-size: 28px;
+//     }
+//   }
+// }
+.main {
+  display: flex;
+  .statistics {
+    flex: 1;
+    padding: 100px 50px;
+    h1 {
+      font-size: 40px;
+      margin-bottom: 10px;
     }
-    > div:last-of-type {
-      .anticon {
-        margin-right: 20px;
-        font-size: 28px;
+    h2 {
+      font-size: 26px;
+    }
+    .week {
+      margin-bottom: 5px;
+    }
+    .statistics-inner {
+      margin-top: 50px;
+      display: flex;
+      align-items: center;
+      > div {
+        flex-basis: 45%;
       }
     }
   }
-  .main {
+  .table-info-container {
+    flex: 1;
     display: flex;
-    .statistics {
-      flex: 1;
-      padding: 100px 50px;
-      h1 {
-        font-size: 40px;
-        margin-bottom: 10px;
-      }
-      h2 {
-        font-size: 26px;
-      }
-      .week {
-        margin-bottom: 5px;
-      }
-      .statistics-inner {
-        margin-top: 50px;
-        display: flex;
-        align-items: center;
-        > div {
-          flex-basis: 45%;
-        }
-      }
-    }
-    .table-info-container {
+    justify-content: space-between;
+    .inner {
       flex: 1;
       display: flex;
+      flex-direction: column;
       justify-content: space-between;
-      .inner {
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-      }
-      .table-info-inner {
-        .top-info {
-          cursor: pointer;
-          padding: 15px 20px;
-          font-weight: bold;
-          .anticon {
-            color: #535353;
-            margin-left: 4px;
-          }
-        }
-        .bill-list {
-          .bill-item {
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 20px;
-            font-size: 16px;
-            &.bill-item-current {
-              background: #c6daf6;
-            }
-            .bill-name {
-              flex: 1;
-              > div:first-of-type {
-                font-weight: bold;
-              }
-              .food-tip {
-                color: #999;
-                font-size: 14px;
-              }
-            }
-            .count {
-              flex-basis: 50px;
-            }
-            .price {
-              flex-basis: 80px;
-              text-align: right;
-              .old-price {
-                font-size: 14px;
-                color: #999;
-                text-decoration: line-through;
-              }
-            }
-          }
-        }
-      }
-      .table-bottom {
+    }
+    .table-info-inner {
+      .top-info {
+        cursor: pointer;
         padding: 15px 20px;
-        .tatal-money-container {
-          display: flex;
-          justify-content: flex-end;
-          align-items: center;
-          color: #999;
-          .tatal-money {
-            font-size: 22px;
-            flex-basis: 80px;
-            text-align: right;
-            font-weight: bold;
-            color: #ea7e52;
-          }
+        font-weight: bold;
+        .anticon {
+          color: #535353;
+          margin-left: 4px;
         }
-        .btn-group {
+      }
+      .bill-list {
+        .bill-item {
+          cursor: pointer;
           display: flex;
           justify-content: space-between;
-          margin-top: 30px;
-          div {
-            cursor: pointer;
-            font-size: 18px;
-            text-align: center;
-            flex-basis: 45%;
-            padding: 10px 0;
-            border-radius: 4px;
-            border: 1px solid #ea7e52;
-            color: #ea7e52;
-          }
-          > div:last-of-type {
-            background: #ea7e52;
-            color: #fff;
-          }
-        }
-      }
-      .table-info-menus {
-        padding-top: 20px;
-        text-align: center;
-        font-weight: bold;
-        box-shadow: 0px 0 7px -6px black;
-        .table-info-menu-item {
-          padding: 20px 15px;
-          cursor: pointer;
-          position: relative;
-          .table-info-childs-menu {
-            text-align: center;
-            font-weight: bold;
-            position: absolute;
-            top: -80%;
-            z-index: 10;
-            background: #fff;
-            > div {
-              padding: 20px 15px;
-              cursor: pointer;
-            }
-            &.show {
-              width: 100px;
-              right: -100%;
-              // transform: translate(90%);
-              transition: all ease 0.5s;
-            }
-            &.hide {
-              width: 0;
-              right: 0;
-              overflow: hidden;
-              transition: all ease 0.5s;
-            }
-          }
-        }
-      }
-    }
-    .right-container {
-      flex-basis: 970px;
-      display: flex;
-      background: #efefef;
-      padding: 5px 0 0 5px;
-    }
-    .table-list {
-      flex-basis: 860px;
-      display: flex;
-      align-items: center;
-      flex-wrap: wrap;
-      margin-right: 6px;
-      .table-item {
-        cursor: pointer;
-        flex-basis: 160px;
-        height: 160px;
-        background: #fff;
-        margin: 0 6px 6px 0;
-        padding: 10px;
-        box-sizing: border-box;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        // box-shadow: 0 0 3px 1px #fff;
-        .table-id {
-          font-weight: bold;
+          align-items: center;
+          padding: 15px 20px;
           font-size: 16px;
+          &.bill-item-current {
+            background: #c6daf6;
+          }
+          .bill-name {
+            flex: 1;
+            > div:first-of-type {
+              font-weight: bold;
+            }
+            .food-tip {
+              color: #999;
+              font-size: 14px;
+            }
+          }
+          .count {
+            flex-basis: 50px;
+          }
+          .price {
+            flex-basis: 80px;
+            text-align: right;
+            .old-price {
+              font-size: 14px;
+              color: #999;
+              text-decoration: line-through;
+            }
+          }
         }
-        .money {
-          font-size: 20px;
+      }
+    }
+    .table-bottom {
+      padding: 15px 20px;
+      .tatal-money-container {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        color: #999;
+        .tatal-money {
+          font-size: 22px;
+          flex-basis: 80px;
+          text-align: right;
           font-weight: bold;
-          color: #fff;
+          color: #ea7e52;
         }
-        .wait-plan-order-text {
-          font-weight: bold;
-          font-size: 20px;
+      }
+      .btn-group {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 30px;
+        div {
+          cursor: pointer;
+          font-size: 18px;
+          text-align: center;
+          flex-basis: 45%;
+          padding: 10px 0;
+          border-radius: 4px;
+          border: 1px solid #ea7e52;
+          color: #ea7e52;
         }
-        &.eating {
+        > div:last-of-type {
           background: #ea7e52;
           color: #fff;
         }
-        &.wait-plan-order {
-          background: #225258;
-          color: #fff;
-        }
-      }
-      .add-table {
-        cursor: pointer;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        .anticon {
-          font-size: 24px;
-          font-weight: bold;
-        }
       }
     }
-    .menu-list {
-      flex-basis: 120px;
-      background: #fff;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding-top: 40px;
-      .menu-item {
-        flex-basis: 80px;
+    .table-info-menus {
+      padding-top: 20px;
+      text-align: center;
+      font-weight: bold;
+      box-shadow: 0px 0 7px -6px black;
+      .table-info-menu-item {
+        padding: 20px 15px;
         cursor: pointer;
+        position: relative;
+        .table-info-childs-menu {
+          text-align: center;
+          font-weight: bold;
+          position: absolute;
+          top: -80%;
+          z-index: 10;
+          background: #fff;
+          > div {
+            padding: 20px 15px;
+            cursor: pointer;
+          }
+          &.show {
+            width: 100px;
+            right: -100%;
+            // transform: translate(90%);
+            transition: all ease 0.5s;
+          }
+          &.hide {
+            width: 0;
+            right: 0;
+            overflow: hidden;
+            transition: all ease 0.5s;
+          }
+        }
       }
     }
   }
+  .right-container {
+    flex-basis: 970px;
+    display: flex;
+    background: #efefef;
+    padding: 5px 0 0 5px;
+  }
+  .table-list {
+    flex-basis: 860px;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-right: 6px;
+    .table-item {
+      cursor: pointer;
+      flex-basis: 160px;
+      height: 160px;
+      background: #fff;
+      margin: 0 6px 6px 0;
+      padding: 10px;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      // box-shadow: 0 0 3px 1px #fff;
+      .table-id {
+        font-weight: bold;
+        font-size: 16px;
+      }
+      .money {
+        font-size: 20px;
+        font-weight: bold;
+        color: #fff;
+      }
+      .wait-plan-order-text {
+        font-weight: bold;
+        font-size: 20px;
+      }
+      &.eating {
+        background: #ea7e52;
+        color: #fff;
+      }
+      &.wait-plan-order {
+        background: #225258;
+        color: #fff;
+      }
+    }
+    .add-table {
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      .anticon {
+        font-size: 24px;
+        font-weight: bold;
+      }
+    }
+  }
+  .menu-list {
+    flex-basis: 120px;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 40px;
+    .menu-item {
+      flex-basis: 80px;
+      cursor: pointer;
+    }
+  }
 }
+// }
