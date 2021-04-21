@@ -12,17 +12,17 @@ export default function MenuList() {
       </div>
       <div className="menu-item">
         <Badge size="small" count={2} offset={[5]}>
-          <span>大厅</span>
+          <span>煲类</span>
         </Badge>
       </div>
       <div className="menu-item">
         <Badge size="small" count={0} offset={[5]}>
-          <span>二楼</span>
+          <span>汤类</span>
         </Badge>
       </div>
       <div className="menu-item">
         <Badge size="small" count={0} offset={[5]}>
-          <span>三楼</span>
+          <span>海鲜</span>
         </Badge>
       </div>
       <div className="menu-item">

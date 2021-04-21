@@ -3,9 +3,9 @@ import { Dropdown, Avatar, Badge } from "antd";
 
 import Header from "../../components/Header";
 // import UIMenu from "../../components/UIMenu";
-import ShopInfo from "./ShopInfo";
-import TableList from "./TableList";
-import AreaCategory from "./AreaCategory";
+import OrderList from "./OrderList";
+import DishList from "./DishList";
+import DishCategory from "./DishCategory";
 
 import { MenuOutlined, PrinterOutlined, FileTextFilled, CaretDownOutlined, QuestionCircleFilled, AntDesignOutlined, PlusOutlined } from "@ant-design/icons";
 import moment from "moment";
@@ -63,15 +63,16 @@ const Home = () => {
 
   return (
     <div className="home-page-container">
-      <Header></Header>
+      {/* <Header></Header> */}
       <main className="main">
         {/* {!showTableInfo ? ( */}
-        <ShopInfo></ShopInfo>
+        {/* <ShopInfo></ShopInfo> */}
+        <OrderList></OrderList>
         {/* ) : ( */}
 
         {/* )} */}
         <div className="right-container">
-          <TableList></TableList>
+          <DishList></DishList>
           {/* <div className='menu-list'>
             <div className='menu-item'>
               <Badge size='small' count={5} offset={[5]}>
@@ -98,7 +99,7 @@ const Home = () => {
               添加
             </div>
           </div> */}
-          <AreaCategory></AreaCategory>
+          <DishCategory></DishCategory>
         </div>
       </main>
     </div>

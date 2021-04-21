@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { PlusOutlined } from "@ant-design/icons";
 
 export default function TableList() {
-  const tableListData = [
+  const dishListData = [
     {
       id: "1",
       tag: "2/4",
@@ -117,7 +117,8 @@ export default function TableList() {
       status: "empty",
     },
   ];
-  const [tableList, setTableList] = useState(tableListData);
+
+  const [tableList, setTableList] = useState(dishListData);
 
   const [showTableInfo, setShowTableInfo] = useState(false);
 

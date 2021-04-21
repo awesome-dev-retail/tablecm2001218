@@ -6,6 +6,7 @@ import CONSTANT from "../configs/CONSTANT";
 
 import Header from "./Header";
 import HomePage from "../pages/Home";
+import OrderPage from "../pages/Order";
 import AboutPage from "../pages/About/AboutPage";
 import LoginPage from "../pages/Login/LoginPage";
 import AuthCheck from "./AuthCheck/AuthCheck";
@@ -22,6 +23,7 @@ const MyRouter = () => {
           {/* <MainLayout> */}
           <Header></Header>
           <Route exact path={CONSTANT.ROUTES.HOME} component={HomePage} />
+          <Route path={CONSTANT.ROUTES.ORDER} component={OrderPage} />
           <Route path={CONSTANT.ROUTES.ABOUT} component={AboutPage} />
           {/* </MainLayout> */}
         </AuthCheck>
