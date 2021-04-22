@@ -1,8 +1,11 @@
+/* eslint-disable react/prop-types */
 import React, { useState } from "react";
+
+import { withRouter } from "react-router-dom";
 
 import { PlusOutlined } from "@ant-design/icons";
 
-export default function TableList() {
+function TableList(props) {
   const tableListData = [
     {
       id: "1",
@@ -119,15 +122,22 @@ export default function TableList() {
   ];
   const [tableList, setTableList] = useState(tableListData);
 
-  const [showTableInfo, setShowTableInfo] = useState(false);
+  // const [showTableInfo, setShowTableInfo] = useState(false);
 
   const getClass = (type) => {
     return type === "eating" ? "eating" : type === "waitPlanOrder" ? "wait-plan-order" : "empty";
   };
+
+  const handleClick = () => {
+    // eslint-disable-next-line react/prop-types
+    props.history.push("/order");
+  };
+
   return (
     <div className="table-list">
       {tableList.map((item) => (
-        <div key={item.id} className={`table-item ${getClass(item.status)}`} onClick={() => setShowTableInfo(true)}>
+        <div key={item.id} className={`table-item ${getClass(item.status)}`} onClick={() => handleClick()}>
+          {/* <div key={item.id} className={`table-item ${getClass(item.status)}`} onClick={() => setShowTableInfo(true)}> */}
           <p className="table-id">{item.id}</p>
           {item.money && <div className="money">￥{item.money}</div>}
           {item.combination && <div>拼{item.combination}桌</div>}
@@ -144,3 +154,5 @@ export default function TableList() {
     </div>
   );
 }
+
+export default withRouter(TableList);

@@ -37,7 +37,8 @@ const billData = [
     newPrice: 2.3,
   },
 ];
-const Home = () => {
+const Order = () => {
+  console.log("orderpage");
   const timerRef = useRef();
   // const [tableList, setTableList] = useState(tableListData)
   // const [time, setCurrentTime] = useState()
@@ -106,4 +107,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Order;
