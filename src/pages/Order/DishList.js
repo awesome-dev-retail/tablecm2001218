@@ -6,116 +6,77 @@ export default function TableList() {
   const dishListData = [
     {
       id: "1",
-      tag: "2/4",
-      money: 193,
-      time: "9124  Mins",
-      status: "eating",
+      name: "Spring Rolls",
+      money: 10,
+      concession: "",
     },
     {
-      id: "2",
-      tag: "2/4",
-      money: 193,
-      time: "9124  Mins",
-      status: "eating",
+      id: "1",
+      name: "Spring Rolls",
+      money: 10,
+      concession: "",
     },
     {
-      id: "3",
-      tag: "2/4",
-      money: 193,
-      time: "9124  Mins",
-      status: "eating",
+      id: "1",
+      name: "Spring Rolls",
+      money: 10,
+      concession: "",
     },
     {
-      id: "4",
-      tag: "2/4",
-      money: 193,
-      time: "9124  Mins",
-      status: "eating",
+      id: "1",
+      name: "Spring Rolls",
+      money: 10,
+      concession: "",
     },
     {
-      id: "5",
-      tag: "2/4",
-      status: "waitPlanOrder",
+      id: "1",
+      name: "Spring Rolls",
+      money: 10,
+      concession: "",
     },
     {
-      id: "6",
-      tag: "2/4",
-      money: 193,
-      combination: 2,
-      time: "9124  Mins",
-      status: "eating",
+      id: "1",
+      name: "Spring Rolls",
+      money: 10,
+      concession: "",
     },
     {
-      id: "7",
-      tag: "2/4",
-      money: 193,
-      combination: 2,
-      time: "9124  Mins",
-      status: "eating",
+      id: "1",
+      name: "Spring Rolls",
+      money: 10,
+      concession: "",
     },
     {
-      id: "8",
-      tag: "2/4",
-      money: 193,
-      time: "9124  Mins",
-      status: "eating",
+      id: "1",
+      name: "Spring Rolls",
+      money: 10,
+      concession: "",
     },
     {
-      id: "9",
-      tag: "2/4",
-      money: 193,
-      time: "9124  Mins",
-      status: "eating",
+      id: "1",
+      name: "Spring Rolls",
+      money: 10,
+      concession: "",
     },
     {
-      id: "10",
-      tag: "2/4",
-      status: "empty",
+      id: "1",
+      name: "Spring Rolls",
+      money: 10,
+      concession: "",
     },
     {
-      id: "11",
-      tag: "2/4",
-      money: 193,
-      time: "9124  Mins",
-      status: "eating",
+      id: "1",
+      name: "Spring Rolls",
+      money: 10,
+      concession: "",
     },
-    {
-      id: "12",
-      tag: "2/4",
-      status: "empty",
-    },
-    {
-      id: "13",
-      tag: "2/4",
-      status: "empty",
-    },
-    {
-      id: "14",
-      tag: "2/4",
-      status: "empty",
-    },
-    {
-      id: "15",
-      tag: "2/4",
-      status: "empty",
-    },
-    {
-      id: "17",
-      tag: "2/4",
-      money: 193,
-      time: "9124  Mins",
-      status: "eating",
-    },
-    {
-      id: "18",
-      tag: "2/4",
-      status: "empty",
-    },
-    {
-      id: "VIP",
-      tag: "2/4",
-      status: "empty",
-    },
+    // {
+    //   id: "1",
+    //   tag: "2/4",
+    //   money: 193,
+    //   time: "9124  Mins",
+    //   status: "eating",
+    // },
   ];
 
   const [tableList, setTableList] = useState(dishListData);
@@ -129,13 +90,13 @@ export default function TableList() {
     <div className="table-list">
       {tableList.map((item) => (
         <div key={item.id} className={`table-item ${getClass(item.status)}`} onClick={() => setShowTableInfo(true)}>
-          <p className="table-id">{item.id}</p>
-          {item.money && <div className="money">${item.money}</div>}
-          {item.combination && <div>share {item.combination} table</div>}
+          <p className="table-id">{item.name}</p>
+          <div className="money">$4</div>
+          {/* {item.combination && <div>share {item.combination} table</div>}
           {item.status === "waitPlanOrder" && <div className="wait-plan-order-text">To be ordered</div>}
           <div>
             {item.tag} {item.time && <span>{item.time}</span>}
-          </div>
+          </div> */}
         </div>
       ))}
       <div className="table-item add-table">
