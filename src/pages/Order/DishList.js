@@ -11,32 +11,32 @@ export default function TableList() {
       concession: "",
     },
     {
-      id: "1",
-      name: "Spring Rolls",
+      id: "2",
+      name: "French Onion Soup",
       money: 10,
       concession: "",
     },
     {
-      id: "1",
-      name: "Spring Rolls",
+      id: "3",
+      name: "Tomato Bruschetta",
+      money: 20,
+      concession: "",
+    },
+    {
+      id: "4",
+      name: "Caesar Salad",
+      money: 5,
+      concession: "",
+    },
+    {
+      id: "5",
+      name: "Mixed Green Salad",
       money: 10,
       concession: "",
     },
     {
-      id: "1",
-      name: "Spring Rolls",
-      money: 10,
-      concession: "",
-    },
-    {
-      id: "1",
-      name: "Spring Rolls",
-      money: 10,
-      concession: "",
-    },
-    {
-      id: "1",
-      name: "Spring Rolls",
+      id: "6",
+      name: "Garden Vegetables",
       money: 10,
       concession: "",
     },
@@ -91,7 +91,7 @@ export default function TableList() {
       {tableList.map((item) => (
         <div key={item.id} className={`table-item ${getClass(item.status)}`} onClick={() => setShowTableInfo(true)}>
           <p className="table-id">{item.name}</p>
-          <div className="money">$4</div>
+          <div className="money">${item.money}</div>
           {/* {item.combination && <div>share {item.combination} table</div>}
           {item.status === "waitPlanOrder" && <div className="wait-plan-order-text">To be ordered</div>}
           <div>
@@ -101,7 +101,7 @@ export default function TableList() {
       ))}
       <div className="table-item add-table">
         <PlusOutlined />
-        <div>Add Table</div>
+        <div>Add Dish</div>
       </div>
     </div>
   );

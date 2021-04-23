@@ -38,7 +38,7 @@ const Order = () => {
   // }
 
   return (
-    <div className="home-page-container">
+    <div className="order-page-container">
       {/* <Header></Header> */}
       <main className="main">
         {/* {!showTableInfo ? ( */}

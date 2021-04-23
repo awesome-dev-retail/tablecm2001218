@@ -5,11 +5,11 @@ import { MenuOutlined, PrinterOutlined, FileTextFilled, CaretDownOutlined, Quest
 export default function OrderList() {
   const [showMore, setShowMore] = useState(false);
 
-  const tableMenus = ["Urge Dish", "Forword Dish", "Refund Dish", "Discount/Present", "Cancel Concession", "Print Bill", "Cancel Order"];
+  const tableMenus = ["Urge", "Forword", "Refund", "Discount", "Concession", "Print", "Cancel"];
   const billData = [
     {
       id: 1,
-      name: "Steak&Cheese",
+      name: "Steak",
       count: 1,
       oldPrice: 23,
       newPrice: 2.3,
@@ -61,12 +61,12 @@ export default function OrderList() {
           <div className="tatal-money-container">
             <span>Total: 3 dishes</span>
             {/* <span>共3项</span> */}
-            <div className="tatal-money">$5.4</div>
+            <div className="tatal-money">$6.9</div>
           </div>
           <div className="btn-group">
             <div>Add Dish</div>
             {/* <div>加菜</div> */}
-            <div>Check out</div>
+            <div>Checkout</div>
             {/* <div>去结账</div> */}
           </div>
         </div>

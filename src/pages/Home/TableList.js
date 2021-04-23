@@ -10,7 +10,7 @@ function TableList(props) {
     {
       id: "1",
       tag: "2/4",
-      money: 193,
+      money: 1934,
       time: "9124 Mins",
       status: "eating",
     },
