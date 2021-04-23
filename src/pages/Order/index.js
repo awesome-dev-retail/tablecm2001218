@@ -12,33 +12,8 @@ import moment from "moment";
 // import "./index.less";
 import "./index.scss";
 
-const tableMenus = ["催菜", "转菜", "退菜", "打折/赠菜", "取消优惠", "打印结算单", "撤单"];
-const billData = [
-  {
-    id: 1,
-    name: "海皇豆腐煲",
-    count: 1,
-    oldPrice: 23,
-    newPrice: 2.3,
-    tip: "甜度：正常，半塘",
-  },
-  {
-    id: 2,
-    name: "海皇豆腐煲",
-    count: 1,
-    oldPrice: 23,
-    newPrice: 2.3,
-  },
-  {
-    id: 3,
-    name: "海皇豆腐煲",
-    count: 1,
-    oldPrice: 23,
-    newPrice: 2.3,
-  },
-];
 const Order = () => {
-  console.log("orderpage");
+  // console.log("orderpage");
   const timerRef = useRef();
   // const [tableList, setTableList] = useState(tableListData)
   // const [time, setCurrentTime] = useState()

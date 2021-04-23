@@ -18,7 +18,7 @@ const ShopInfo = () => {
   const weeks = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
   useEffect(() => {
-    setCurrentDate(moment().format("MM月DD日"));
+    setCurrentDate(moment().format("YYYY-MM-DD"));
     setCurrentWeek(weeks[moment().day()]);
     timerRef.current = setInterval(() => {
       setCurrentTime(moment().format("HH:mm:ss"));
@@ -33,14 +33,17 @@ const ShopInfo = () => {
       <div className="week">
         {date} {week}
       </div>
-      <div>福记 1291928129012012</div>
+      <div>Skytower 1291928129012012</div>
+      {/* <div>福记 1291928129012012</div> */}
       <div className="statistics-inner">
         <div>
-          <span>未结订单</span>
+          <span>Unchecked order</span>
+          {/* <span>未结订单</span> */}
           <h2>8</h2>
         </div>
         <div>
-          <span>待支付金额（元）</span>
+          <span>To be paid ($)</span>
+          {/* <span>待支付金额（元）</span> */}
           <h2>238</h2>
         </div>
       </div>

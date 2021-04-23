@@ -10,7 +10,7 @@ export default function Header() {
       <header className="header">
         <div>
           <MenuOutlined />
-          桌台
+          TABLES
         </div>
         <div>
           <PrinterOutlined />

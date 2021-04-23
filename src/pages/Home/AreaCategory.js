@@ -7,27 +7,27 @@ export default function MenuList() {
     <div className="menu-list">
       <div className="menu-item">
         <Badge size="small" count={5} offset={[5]}>
-          <span>全部</span>
+          <span>All Areas</span>
         </Badge>
       </div>
       <div className="menu-item">
         <Badge size="small" count={2} offset={[5]}>
-          <span>大厅</span>
+          <span>Ground Floor</span>
         </Badge>
       </div>
       <div className="menu-item">
         <Badge size="small" count={0} offset={[5]}>
-          <span>二楼</span>
+          <span>First Floor</span>
         </Badge>
       </div>
       <div className="menu-item">
         <Badge size="small" count={0} offset={[5]}>
-          <span>三楼</span>
+          <span>Second Floor</span>
         </Badge>
       </div>
       <div className="menu-item">
         <PlusOutlined />
-        添加
+        Add Area
       </div>
     </div>
   );

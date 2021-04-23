@@ -11,28 +11,28 @@ function TableList(props) {
       id: "1",
       tag: "2/4",
       money: 193,
-      time: "9124分",
+      time: "9124 Mins",
       status: "eating",
     },
     {
       id: "2",
       tag: "2/4",
       money: 193,
-      time: "9124分",
+      time: "9124 Mins",
       status: "eating",
     },
     {
       id: "3",
       tag: "2/4",
       money: 193,
-      time: "9124分",
+      time: "9124 Mins",
       status: "eating",
     },
     {
       id: "4",
       tag: "2/4",
       money: 193,
-      time: "9124分",
+      time: "9124 Mins",
       status: "eating",
     },
     {
@@ -45,7 +45,7 @@ function TableList(props) {
       tag: "2/4",
       money: 193,
       combination: 2,
-      time: "9124分",
+      time: "9124 Mins",
       status: "eating",
     },
     {
@@ -53,21 +53,21 @@ function TableList(props) {
       tag: "2/4",
       money: 193,
       combination: 2,
-      time: "9124分",
+      time: "9124 Mins",
       status: "eating",
     },
     {
       id: "8",
       tag: "2/4",
       money: 193,
-      time: "9124分",
+      time: "9124 Mins",
       status: "eating",
     },
     {
       id: "9",
       tag: "2/4",
       money: 193,
-      time: "9124分",
+      time: "9124 Mins",
       status: "eating",
     },
     {
@@ -79,7 +79,7 @@ function TableList(props) {
       id: "11",
       tag: "2/4",
       money: 193,
-      time: "9124分",
+      time: "9124 Mins",
       status: "eating",
     },
     {
@@ -106,7 +106,7 @@ function TableList(props) {
       id: "17",
       tag: "2/4",
       money: 193,
-      time: "9124分",
+      time: "9124 Mins",
       status: "eating",
     },
     {
@@ -139,9 +139,10 @@ function TableList(props) {
         <div key={item.id} className={`table-item ${getClass(item.status)}`} onClick={() => handleClick()}>
           {/* <div key={item.id} className={`table-item ${getClass(item.status)}`} onClick={() => setShowTableInfo(true)}> */}
           <p className="table-id">{item.id}</p>
-          {item.money && <div className="money">￥{item.money}</div>}
-          {item.combination && <div>拼{item.combination}桌</div>}
-          {item.status === "waitPlanOrder" && <div className="wait-plan-order-text">待下单</div>}
+          {item.money && <div className="money">${item.money}</div>}
+          {item.combination && <div>Share {item.combination} Tables</div>}
+          {/* {item.combination && <div>拼{item.combination}桌</div>} */}
+          {item.status === "waitPlanOrder" && <div className="wait-plan-order-text">To be ordered</div>}
           <div>
             {item.tag} {item.time && <span>{item.time}</span>}
           </div>
@@ -149,7 +150,8 @@ function TableList(props) {
       ))}
       <div className="table-item add-table">
         <PlusOutlined />
-        <div>添加桌台</div>
+        <div>Add Table</div>
+        {/* <div>添加桌台</div> */}
       </div>
     </div>
   );

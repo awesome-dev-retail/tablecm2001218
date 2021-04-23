@@ -5,38 +5,40 @@ import { MenuOutlined, PrinterOutlined, FileTextFilled, CaretDownOutlined, Quest
 export default function OrderList() {
   const [showMore, setShowMore] = useState(false);
 
-  const tableMenus = ["催菜", "转菜", "退菜", "打折/赠菜", "取消优惠", "打印结算单", "撤单"];
+  const tableMenus = ["Urge Dish", "Forword Dish", "Refund Dish", "Discount/Present", "Cancel Concession", "Print Bill", "Cancel Order"];
   const billData = [
     {
       id: 1,
-      name: "海皇豆腐煲",
+      name: "Steak&Cheese",
       count: 1,
       oldPrice: 23,
       newPrice: 2.3,
-      tip: "甜度：正常，半塘",
+      tip: "cooked：spicy, lemon",
     },
     {
       id: 2,
-      name: "海皇豆腐煲",
+      name: "Masala Steak",
       count: 1,
       oldPrice: 23,
       newPrice: 2.3,
     },
     {
       id: 3,
-      name: "海皇豆腐煲",
+      name: "Tuna",
       count: 1,
       oldPrice: 23,
       newPrice: 2.3,
     },
   ];
+
   return (
     <div className="table-info-container">
       <div className="inner">
         <div className="table-info-inner">
           <div className="top-info">
             {/* <div className="top-info" onClick={() => setShowTableInfo(false)}> */}
-            <span>桌台1，人数12/12</span>
+            <span>Table Number: 1，12/12</span>
+            {/* <span>桌台1，人数12/12</span> */}
             <CaretDownOutlined />
           </div>
           <div className="bill-list">
@@ -48,8 +50,8 @@ export default function OrderList() {
                 </div>
                 <div className="count">X {item.count}</div>
                 <div className="price">
-                  <div className="new-price">￥{item.newPrice}</div>
-                  <div className="old-price">￥{item.oldPrice}</div>
+                  <div className="new-price">${item.newPrice}</div>
+                  <div className="old-price">$ {item.oldPrice}</div>
                 </div>
               </div>
             ))}
@@ -57,12 +59,15 @@ export default function OrderList() {
         </div>
         <div className="table-bottom">
           <div className="tatal-money-container">
-            <span>共3项</span>
-            <div className="tatal-money">￥5.4</div>
+            <span>Total: 3 dishes</span>
+            {/* <span>共3项</span> */}
+            <div className="tatal-money">$5.4</div>
           </div>
           <div className="btn-group">
-            <div>加菜</div>
-            <div>去结账</div>
+            <div>Add Dish</div>
+            {/* <div>加菜</div> */}
+            <div>Check out</div>
+            {/* <div>去结账</div> */}
           </div>
         </div>
       </div>
@@ -73,12 +78,16 @@ export default function OrderList() {
           </div>
         ))}
         <div className="table-info-menu-item" onClick={() => setShowMore(!showMore)}>
-          <span>更多</span>
+          <span>More</span>
           <div className={`table-info-childs-menu ${showMore ? "show" : "hide"}`}>
-            <div>拼桌</div>
+            <div>Share Table</div>
+            <div>Change Table</div>
+            <div>Combine Table</div>
+            <div>Batch</div>
+            {/* <div>拼桌</div>
             <div>换桌</div>
             <div>合桌</div>
-            <div>批量</div>
+            <div>批量</div> */}
           </div>
         </div>
       </div>
