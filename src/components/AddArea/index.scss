@@ -1,0 +1,47 @@
+.area-container {
+  .ant-modal-header {
+    border-bottom: 0;
+  }
+  .ant-modal-body {
+    padding: 0;
+    .ant-input:focus,
+    .ant-input:hover,
+    .ant-input-focused {
+      border-color: #ea7e52;
+      box-shadow: 0 0 0 1px rgb(241, 189, 168);
+    }
+    .model-content {
+      margin-top: 20px;
+      padding: 0 5%;
+      .ant-form-item {
+        padding-bottom: 10px;
+        border-bottom: 1px solid #efefef;
+        .ant-form-item-no-colon::before {
+          display: none;
+        }
+        .ant-input {
+          border: none;
+          text-align: right;
+          box-shadow: none;
+        }
+      }
+    }
+  }
+  .ant-modal-footer {
+    padding: 20px;
+    border-top: none;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    .model-btn {
+      cursor: pointer;
+      flex-basis: 120px;
+      text-align: center;
+      height: 40px;
+      line-height: 40px;
+      padding: 0 20px;
+      background: #ea7e52;
+      color: #fff;
+    }
+  }
+}

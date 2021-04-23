@@ -10,7 +10,7 @@ import OrderPage from "../pages/Order";
 import AboutPage from "../pages/About/AboutPage";
 import LoginPage from "../pages/Login/LoginPage";
 import AuthCheck from "./AuthCheck/AuthCheck";
-import MainLayout from "./MainLayout/MainLayout";
+// import MainLayout from "./MainLayout/MainLayout";
 
 // const history = createBrowserHistory()
 
