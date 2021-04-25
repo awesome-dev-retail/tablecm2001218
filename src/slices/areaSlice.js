@@ -21,12 +21,11 @@ const initialState = {
 //     },
 //   });
 // };
-
 export const fetchAreaList = createAsyncThunk("area/fetchAreaList", async (id, { rejectWithValue }) => {
   try {
     const res = await axios({
       url: `https://pos-restaurant-be-dev.azurewebsites.net/pos/data/area/list_in_shop?shopId=${id}`,
-      headers: { Authorization: "Bearer YwsYAnsCInI-buw54nC2xg==" },
+      headers: { Authorization: "Bearer fMBxnbwHzOU5zyLRhlCtmA==" },
     });
     if (res.error) throw res.error;
     console.log("fetchAreaList--------------", res);
@@ -37,19 +36,31 @@ export const fetchAreaList = createAsyncThunk("area/fetchAreaList", async (id, {
   }
 });
 
-export const addArea = createAsyncThunk("area/addArea", async (areaObj, { rejectWithValue }) => {
+export const saveArea = createAsyncThunk("area/saveArea", async (areaObj, { rejectWithValue }) => {
   try {
-    console.log("createAsyncThunk addArea", areaObj);
     const res = await axios({
+      method: "post",
       url: "https://pos-restaurant-be-dev.azurewebsites.net/pos/data/area/save",
-      headers: { Authorization: "Bearer YwsYAnsCInI-buw54nC2xg==" },
-      // params: areaObj,
-      // paramsSerializer: function (params) {
-      //   return Qs.stringify(params, { arrayFormat: "brackets" });
-      // },
+      headers: { Authorization: "Bearer fMBxnbwHzOU5zyLRhlCtmA== " },
+      data: areaObj,
     });
-    console.log("addArea--------------", res);
     if (res.error) throw res.error;
+    console.log("saveArea--------------", res);
+    return res;
+  } catch (e) {
+    return rejectWithValue(e.message);
+  }
+});
+
+export const deleteArea = createAsyncThunk("area/deleteArea", async (id, { rejectWithValue }) => {
+  try {
+    const res = await axios({
+      method: "delete",
+      url: `https://pos-restaurant-be-dev.azurewebsites.net/pos/data/area/delete/${id}`,
+      headers: { Authorization: "Bearer fMBxnbwHzOU5zyLRhlCtmA== " },
+    });
+    if (res.error) throw res.error;
+    console.log("deleteArea--------------", res);
     return res;
   } catch (e) {
     return rejectWithValue(e.message);
@@ -74,22 +85,37 @@ const AreaSlice = createSlice({
     },
     [fetchAreaList.rejected]: (state, action) => {
       state.status = config.API_STATUS.FAILED;
-      message.error(action.payload);
+      // message.error(action.payload);
     },
-    [addArea.pending]: (state) => {
+    [saveArea.pending]: (state) => {
       state.status = config.API_STATUS.LOADING;
     },
-    [addArea.fulfilled]: (state, action) => {
+    [saveArea.fulfilled]: (state, action) => {
       state.status = config.API_STATUS.SUCCEEDED;
-      state.addedArea = action.payload;
+      // state.area = action.payload;
       state.error = null;
       // state.token = action.payload.token;
       // CacheStorage.setItem(config.TOKEN_SYMBOL, action.payload.token);
       // CacheStorage.setItem(config.TOKEN_IS_ADMIN, false);
     },
-    [addArea.rejected]: (state, action) => {
+    [saveArea.rejected]: (state, action) => {
       state.status = config.API_STATUS.FAILED;
-      message.error(action.payload);
+      // message.error(action.payload);
+    },
+    [deleteArea.pending]: (state) => {
+      state.status = config.API_STATUS.LOADING;
+    },
+    [deleteArea.fulfilled]: (state, action) => {
+      state.status = config.API_STATUS.SUCCEEDED;
+      // state.area = action.payload;
+      state.error = null;
+      // state.token = action.payload.token;
+      // CacheStorage.setItem(config.TOKEN_SYMBOL, action.payload.token);
+      // CacheStorage.setItem(config.TOKEN_IS_ADMIN, false);
+    },
+    [deleteArea.rejected]: (state, action) => {
+      state.status = config.API_STATUS.FAILED;
+      // message.error(action.payload);
     },
   },
 });

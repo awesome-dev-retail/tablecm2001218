@@ -1,16 +1,44 @@
 import React, { Fragment, useState, useEffect } from "react";
-import { Badge } from "antd";
-import { PlusOutlined } from "@ant-design/icons";
+import { Badge, Modal, Button } from "antd";
+
+import { PlusOutlined, EditOutlined, DeleteOutlined, ExclamationCircleOutlined } from "@ant-design/icons";
 import { useSelector, useDispatch } from "react-redux";
 
-import { fetchAreaList } from "../../slices/areaSlice";
+import { fetchAreaList, deleteArea } from "../../slices/areaSlice";
 import { selectAreaList } from "../../slices/areaSlice";
 import AddArea from "../../components/AddArea";
 
 export default function MenuList() {
   const [showArea, setShowArea] = useState(false);
+  // const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [areaList, setAreaList] = useState([]);
-  let modalForm = null;
+  const [areaId, setAreaId] = useState(0);
+  const [areaName, setAreaName] = useState("");
+
+  const [isAdmin, setIsAdmin] = useState(true);
+  // let modalForm = null;
+
+  const { confirm } = Modal;
+
+  function showDeleteConfirm(id) {
+    confirm({
+      title: "Are you sure to delete this item?",
+      icon: <ExclamationCircleOutlined />,
+      // content: "Some descriptions",
+      okText: "Yes",
+      okType: "danger",
+      cancelText: "No",
+      async onOk() {
+        // console.log("OK");
+        // console.log(id);
+        await dispatch(deleteArea(id));
+        await dispatch(fetchAreaList(1));
+      },
+      onCancel() {
+        console.log("Cancel");
+      },
+    });
+  }
 
   const dispatch = useDispatch();
   const areaListFromSlice = useSelector((state) => selectAreaList(state)) || [];
@@ -25,23 +53,29 @@ export default function MenuList() {
     // console.log("useEffect");
   }, []);
 
-  const handleAddArea = () => {
+  const handleSaveArea = (areaId, areaName) => {
     setShowArea(!showArea);
+    console.log(areaId, areaName);
+    setAreaId(areaId);
+    setAreaName(areaName);
   };
   return (
     <Fragment>
       <div className="menu-list">
         <div className="menu-item">
-          <Badge size="small" count={5} offset={[5]}>
-            <span>All Areas</span>
-          </Badge>
+          {/* <Badge size="small" count={5} offset={[5]}> */}
+          <span>All Areas</span>
+          {/* </Badge> */}
         </div>
         {areaListFromSlice.map((item) => {
           return (
             <div key={item.id} className="menu-item">
-              <Badge size="small" count={5} offset={[5]}>
-                <span>{item.area_name}</span>
-              </Badge>
+              {/* <Badge size="small" count={5} offset={[5]}> */}
+              <div>{item.area_name}</div>
+              {isAdmin && <EditOutlined onClick={() => handleSaveArea(item.id, item.area_name)} />}
+              {isAdmin && <DeleteOutlined onClick={() => showDeleteConfirm(item.id)} />}
+              {/* {isAdmin && <DeleteOutlined onClick={() => setShowDeleteModal(!ShowDeleteModal)} />} */}
+              {/* </Badge> */}
             </div>
           );
         })}
@@ -61,12 +95,12 @@ export default function MenuList() {
             <span>Second Floor</span>
           </Badge>
         </div> */}
-        <div className="menu-item" onClick={() => handleAddArea()}>
+        <div className="menu-item" onClick={() => handleSaveArea()}>
           <PlusOutlined />
           Add
         </div>
       </div>
-      <AddArea visible={showArea} hideModel={setShowArea} />
+      <AddArea visible={showArea} hideModel={setShowArea} id={areaId} name={areaName} />
       {/* <AddArea visible={showArea} hideModel={() => setShowArea(false)} /> */}
     </Fragment>
   );

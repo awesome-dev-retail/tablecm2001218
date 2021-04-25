@@ -251,7 +251,24 @@
       padding-top: 40px;
       .menu-item {
         flex-basis: 80px;
+        width: 50px;
+        text-align: center;
         cursor: pointer;
+        > div {
+          margin-right: 3px;
+        }
+        .anticon-edit,
+        .anticon-delete {
+          display: none;
+          margin-right: 5px;
+        }
+      }
+      .menu-item:hover {
+        color: #ea7e52;
+      }
+      .menu-item:hover .anticon-edit,
+      .menu-item:hover .anticon-delete {
+        display: inline-block;
       }
     }
   }

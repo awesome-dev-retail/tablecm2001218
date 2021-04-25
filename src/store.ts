@@ -7,10 +7,10 @@ export default configureStore({
     Auth: authReducer,
     Area: areaReducer,
   },
-  // middleware: getDefaultMiddleware({
-  // serializableCheck: {
-  // ignoredActions: ["area/addArea/fulfilled"],
-  // ignoredActions: ["user/fetchUser/fulfilled"],
-  // },
-  // }),
+  middleware: getDefaultMiddleware({
+    serializableCheck: {
+      ignoredActions: ["area/fetchAreaList/fulfilled", "area/saveArea/fulfilled", "area/deleteArea/fulfilled"],
+      // ignoredActions: ["user/fetchUser/fulfilled"],
+    },
+  }),
 });
