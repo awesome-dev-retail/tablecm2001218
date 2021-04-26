@@ -4,17 +4,43 @@ import PropTypes from "prop-types";
 import "./index.scss";
 
 const { Option } = Select;
+
 const Index = (props) => {
+  const dispatch = useDispatch();
+  const [form] = Form.useForm();
+
+  console.log(props.name);
+
   const hideModal = () => {
     props.hideModel();
   };
 
-  const onFinish = () => {
-    return;
+  // const onFinish = () => {
+  //   return;
+  // };
+
+  const addTable = () => {
+    form.validateFields().then(async (res) => {
+      // console.log(res);
+      form.resetFields();
+      props.hideModel(false);
+      const tableObj = {
+        // id: 1, // [not required for creating]
+        id: props.id ? props.id : null,
+        cid: 1, // [required] int
+        shop_id: 1, // [required] int
+        area_name: res.areaname, // [required] string
+        // active: true, // [not required for creating]
+        // description: "The Hall Area",
+      };
+      await dispatch(saveTable(tableObj));
+      await dispatch(fetchTableList(1));
+    });
   };
+
   return (
     <Modal
-      className="add-desk-container"
+      className="add-table-container"
       width={500}
       title="Add Table"
       destroyOnClose={true}
@@ -22,7 +48,7 @@ const Index = (props) => {
       onOk={hideModal}
       onCancel={hideModal}
       footer={[
-        <div className="model-btn" key="btn" onClick={hideModal}>
+        <div className="model-btn" key="btn" onClick={addTable}>
           Save
         </div>,
         // <div className="model-btn" key="btn1" onClick={hideModal}>
@@ -54,6 +80,9 @@ const Index = (props) => {
 Index.propTypes = {
   hideModel: PropTypes.func.isRequired,
   visible: PropTypes.bool.isRequired,
+  id: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  isUpdate: PropTypes.bool.isRequired,
 };
 
 export default Index;
