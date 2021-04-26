@@ -1,11 +1,17 @@
 /* eslint-disable react/prop-types */
-import React, { useState } from "react";
-
+import React, { Fragment, useState } from "react";
 import { withRouter } from "react-router-dom";
+import { PlusOutlined, EditOutlined, DeleteOutlined } from "@ant-design/icons";
 
-import { PlusOutlined } from "@ant-design/icons";
+import AddTable from "../../components/AddTable";
 
 function TableList(props) {
+  const [showTable, setShowTable] = useState(false);
+  const [tableId, setTableId] = useState(0);
+  const [tableName, setTableName] = useState("");
+  const [isAdmin, setIsAdmin] = useState(true);
+  const [isUpdate, setIsUpdate] = useState(false);
+
   const tableListData = [
     {
       id: "1",
@@ -133,27 +139,42 @@ function TableList(props) {
     props.history.push("/order");
   };
 
+  const handleSaveTable = (tableId, tableName, isUpdate) => {
+    setShowTable(!showTable);
+    console.log(tableId, tableName);
+    setTableId(tableId);
+    setTableName(tableName);
+    setIsUpdate(true);
+  };
+
   return (
-    <div className="table-list">
-      {tableList.map((item) => (
-        <div key={item.id} className={`table-item ${getClass(item.status)}`} onClick={() => handleClick()}>
-          {/* <div key={item.id} className={`table-item ${getClass(item.status)}`} onClick={() => setShowTableInfo(true)}> */}
-          <p className="table-id">{item.id}</p>
-          {item.money && <div className="money">${item.money}</div>}
-          {item.combination && <div>Share {item.combination} Tables</div>}
-          {/* {item.combination && <div>拼{item.combination}桌</div>} */}
-          {item.status === "waitPlanOrder" && <div className="wait-plan-order-text">To be ordered</div>}
-          <div>
-            {item.tag} {item.time && <span>{item.time}</span>}
+    <Fragment>
+      <div className="table-list">
+        {tableList.map((item) => (
+          <div key={item.id} className={`table-item ${getClass(item.status)}`} onClick={() => handleClick()}>
+            {/* <div key={item.id} className={`table-item ${getClass(item.status)}`} onClick={() => setShowTableInfo(true)}> */}
+            <p className="table-id">{item.id}</p>
+            {item.money && <div className="money">${item.money}</div>}
+            {item.combination && <div>Share {item.combination} Tables</div>}
+            {/* {item.combination && <div>拼{item.combination}桌</div>} */}
+            {item.status === "waitPlanOrder" && <div className="wait-plan-order-text">To be ordered</div>}
+            <div>
+              {item.tag} {item.time && <span>{item.time}</span>}
+            </div>
+            <div className="edit-delete">
+              {isAdmin && <EditOutlined onClick={() => handleSaveTable(item.id, item.area_name)} />}
+              {isAdmin && <DeleteOutlined onClick={() => showDeleteConfirm(item.id)} />}
+            </div>
           </div>
+        ))}
+        <div className="table-item add-table" onClick={() => handleSaveTable()}>
+          <PlusOutlined />
+          <div>Add Table!</div>
+          {/* <div>添加桌台</div> */}
         </div>
-      ))}
-      <div className="table-item add-table">
-        <PlusOutlined />
-        <div>Add Table</div>
-        {/* <div>添加桌台</div> */}
       </div>
-    </div>
+      <AddTable visible={showTable} hideModel={setShowTable} id={tableId} name={tableName} isUpdate={isUpdate}></AddTable>
+    </Fragment>
   );
 }
 

@@ -229,6 +229,20 @@
           background: #225258;
           color: #fff;
         }
+        .edit-delete {
+          display: flex;
+          justify-content: flex-end;
+          height: 20px;
+        }
+        .anticon-edit,
+        .anticon-delete {
+          display: none;
+          margin-right: 5px;
+        }
+        &.table-item:hover .anticon-edit,
+        &.table-item:hover .anticon-delete {
+          display: inline-block;
+        }
       }
       .add-table {
         cursor: pointer;
