@@ -16,6 +16,7 @@ export default function MenuList() {
   const [areaName, setAreaName] = useState("");
 
   const [isAdmin, setIsAdmin] = useState(true);
+  const [isUpdate, setIsUpdate] = useState(false);
   // let modalForm = null;
 
   const { confirm } = Modal;
@@ -53,11 +54,12 @@ export default function MenuList() {
     // console.log("useEffect");
   }, []);
 
-  const handleSaveArea = (areaId, areaName) => {
+  const handleSaveArea = (areaId, areaName, isUpdate) => {
     setShowArea(!showArea);
     console.log(areaId, areaName);
     setAreaId(areaId);
     setAreaName(areaName);
+    setIsUpdate(true);
   };
   return (
     <Fragment>
@@ -100,7 +102,7 @@ export default function MenuList() {
           Add
         </div>
       </div>
-      <AddArea visible={showArea} hideModel={setShowArea} id={areaId} name={areaName} />
+      <AddArea visible={showArea} hideModel={setShowArea} id={areaId} name={areaName} isUpdate={isUpdate} />
       {/* <AddArea visible={showArea} hideModel={() => setShowArea(false)} /> */}
     </Fragment>
   );
