@@ -191,7 +191,7 @@ function TableList(props) {
               onClick={() => {
                 redirectToOrder();
               }}>
-              <p className="table-id">{item.id}</p>
+              <p className="table-id">{item.table_name}</p>
               {item.money && <div className="money">${item.money}</div>}
               {item.combination && <div>Share {item.combination} Tables</div>}
               {/* {item.combination && <div>拼{item.combination}桌</div>} */}

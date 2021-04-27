@@ -26,7 +26,7 @@ const Index = (props) => {
       form.resetFields();
       props.hideModel(false);
       const tableObj = {
-        // id: 1, // [not required for creating]
+        id: props.id, // [not required for creating]
         // id: 5,
         // id: props.id ? props.id : null,
         cid: 1, // [required] int
@@ -34,7 +34,7 @@ const Index = (props) => {
         area_id: 47,
         table_name: res.tableName, // [required] string
         capacity: res.capacity * 1, // [required] int
-        // active: true, // [not required for creating]
+        active: true, // [not required for creating]
         // description: "The Hall Area",
       };
       console.log("tableObj", tableObj);
@@ -61,10 +61,10 @@ const Index = (props) => {
         // </div>,
       ]}>
       <Form form={form} name="basic" initialValues={{ remember: true }} onFinish={onFinish}>
-        <Form.Item colon={false} label="Table Name" name="tableName" rules={[{ required: false, message: "Please input table ID or name!" }]}>
-          <Input placeholder="please input table ID or name, eg：A01" />
+        <Form.Item colon={false} label="Table Name" name="tableName" rules={[{ required: true, message: "Please input table ID or name!" }]}>
+          <Input placeholder="please input table ID or name, eg：A01" defaultValue={props.id ? props.name : ""} />
         </Form.Item>
-        <Form.Item colon={false} label="Area" name="areaName" rules={[{ required: false, message: "Please input area!" }]}>
+        <Form.Item colon={false} label="Area" name="areaName" rules={[{ required: true, message: "Please input area!" }]}>
           <Select placeholder="">
             {/* <Select placeholder="去设置"> */}
             {["Hall", "First Floor", "Second Floor"].map((item) => (
@@ -74,8 +74,8 @@ const Index = (props) => {
             ))}
           </Select>
         </Form.Item>
-        <Form.Item colon={false} label="Capacity" name="capacity" rules={[{ required: false, message: "Please input capacity!" }]}>
-          <Input placeholder="Please input capacity" />
+        <Form.Item colon={false} label="Capacity" name="capacity" rules={[{ required: true, message: "Please input capacity!" }]}>
+          <Input placeholder="Please input capacity" initialValues={props.id ? props.capacity : ""} />
         </Form.Item>
       </Form>
     </Modal>
@@ -86,10 +86,9 @@ Index.propTypes = {
   hideModel: PropTypes.func.isRequired,
   visible: PropTypes.bool.isRequired,
   // areaId: PropTypes.number.isRequired,
-  // id: PropTypes.number.isRequired,
-  // name: PropTypes.string.isRequired,
-  // capacity: PropTypes.number.isRequired,
-
+  id: PropTypes.number,
+  name: PropTypes.string,
+  capacity: PropTypes.number,
   // isUpdate: PropTypes.bool.isRequired,
 };
 

@@ -23,13 +23,14 @@ const Index = (props) => {
       props.hideModel(false);
       const areaObj = {
         // id: 1, // [not required for creating]
-        id: props.id ? props.id : null,
+        id: props.id,
         cid: 1, // [required] int
         shop_id: 1, // [required] int
-        area_name: res.areaname, // [required] string
+        area_name: res.areaName, // [required] string
         // active: true, // [not required for creating]
         // description: "The Hall Area",
       };
+      console.log(areaObj);
       await dispatch(saveArea(areaObj));
       await dispatch(fetchAreaList(1));
     });
@@ -53,7 +54,7 @@ const Index = (props) => {
       ]}>
       <div className="model-content">
         <Form form={form}>
-          <Form.Item label="Area Name" colon={false} name="areaname" rules={[{ required: true, message: "Please input area name!" }]}>
+          <Form.Item label="Area Name" colon={false} name="areaName" rules={[{ required: true, message: "Please input area name!" }]}>
             <Input placeholder="eg: hall" defaultValue={props.isUpdate ? props.name : ""} />
           </Form.Item>
         </Form>
