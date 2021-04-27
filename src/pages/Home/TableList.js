@@ -135,7 +135,7 @@ function TableList(props) {
   ];
   const [tableList, setTableList] = useState(tableListData);
 
-  const [showTableInfo, setShowTableInfo] = useState(false);
+  // const [showTableInfo, setShowTableInfo] = useState(false);
 
   const { confirm } = Modal;
 
@@ -157,9 +157,7 @@ function TableList(props) {
   };
 
   const handleSaveTable = (tableId, tableName, capacity) => {
-    console.log(event.target);
-    event.stopPropagation();
-    setShowTable(!showTable);
+    setShowTable(true);
     setTableId(tableId);
     setTableName(tableName);
     setCapacity(capacity);

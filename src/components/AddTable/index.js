@@ -13,7 +13,7 @@ const Index = (props) => {
 
   const hideModal = () => {
     form.resetFields();
-    props.hideModel();
+    props.hideModel(false);
   };
 
   const onFinish = () => {
