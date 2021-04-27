@@ -1,7 +1,12 @@
 /* eslint-disable react/prop-types */
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { withRouter } from "react-router-dom";
-import { PlusOutlined, EditOutlined, DeleteOutlined } from "@ant-design/icons";
+import { Badge, Modal, Button } from "antd";
+import { PlusOutlined, EditOutlined, DeleteOutlined, ExclamationCircleOutlined } from "@ant-design/icons";
+import { useSelector, useDispatch } from "react-redux";
+
+import { fetchTableListInShop, deleteTable } from "../../slices/tableSlice";
+import { selectTableList } from "../../slices/tableSlice";
 
 import AddTable from "../../components/AddTable";
 
@@ -9,8 +14,10 @@ function TableList(props) {
   const [showTable, setShowTable] = useState(false);
   const [tableId, setTableId] = useState(0);
   const [tableName, setTableName] = useState("");
+  const [capacity, setCapacity] = useState(0);
   const [isAdmin, setIsAdmin] = useState(true);
-  const [isUpdate, setIsUpdate] = useState(false);
+
+  // const [isUpdate, setIsUpdate] = useState(false);
 
   const tableListData = [
     {
@@ -130,6 +137,36 @@ function TableList(props) {
 
   // const [showTableInfo, setShowTableInfo] = useState(false);
 
+  const { confirm } = Modal;
+
+  function showDeleteConfirm(id) {
+    confirm({
+      title: "Are you sure to delete this item?",
+      icon: <ExclamationCircleOutlined />,
+      // content: "Some descriptions",
+      okText: "Yes",
+      okType: "danger",
+      cancelText: "No",
+      async onOk() {
+        // console.log("OK");
+        // console.log(id);
+        await dispatch(deletetable(id));
+        await dispatch(fetchTableListInShop(1));
+      },
+      onCancel() {
+        console.log("Cancel");
+      },
+    });
+  }
+
+  const dispatch = useDispatch();
+  const tableListFromSlice = useSelector((state) => selectTableList(state)) || [];
+  console.log("tableListFromSlice", tableListFromSlice);
+
+  useEffect(() => {
+    dispatch(fetchTableListInShop(1));
+  }, []);
+
   const getClass = (type) => {
     return type === "eating" ? "eating" : type === "waitPlanOrder" ? "wait-plan-order" : "empty";
   };
@@ -139,18 +176,23 @@ function TableList(props) {
     props.history.push("/order");
   };
 
-  const handleSaveTable = (tableId, tableName, isUpdate) => {
+  const handleSaveTable = (tableId, tableName, capacity) => {
     setShowTable(!showTable);
+    // if (type === "edit") {
     console.log(tableId, tableName);
     setTableId(tableId);
     setTableName(tableName);
-    setIsUpdate(true);
+    setCapacity(capacity);
+    // setIsUpdate(true);
+    // } elseif(type === "add") {
+
+    // }
   };
 
   return (
     <Fragment>
       <div className="table-list">
-        {tableList.map((item) => (
+        {tableListFromSlice.map((item) => (
           <div key={item.id} className={`table-item ${getClass(item.status)}`} onClick={() => handleClick()}>
             {/* <div key={item.id} className={`table-item ${getClass(item.status)}`} onClick={() => setShowTableInfo(true)}> */}
             <p className="table-id">{item.id}</p>
@@ -162,18 +204,18 @@ function TableList(props) {
               {item.tag} {item.time && <span>{item.time}</span>}
             </div>
             <div className="edit-delete">
-              {isAdmin && <EditOutlined onClick={() => handleSaveTable(item.id, item.area_name)} />}
+              {isAdmin && <EditOutlined onClick={() => handleSaveTable(item.id, item.table_name, item.capacity)} />}
               {isAdmin && <DeleteOutlined onClick={() => showDeleteConfirm(item.id)} />}
             </div>
           </div>
         ))}
         <div className="table-item add-table" onClick={() => handleSaveTable()}>
           <PlusOutlined />
-          <div>Add Table!</div>
+          <div>Add Table</div>
           {/* <div>添加桌台</div> */}
         </div>
       </div>
-      <AddTable visible={showTable} hideModel={setShowTable} id={tableId} name={tableName} isUpdate={isUpdate}></AddTable>
+      <AddTable visible={showTable} hideModel={setShowTable} id={tableId} name={tableName} capacity={capacity}></AddTable>
     </Fragment>
   );
 }

@@ -25,7 +25,7 @@ export const fetchTableListInShop = createAsyncThunk("table/fetchTableListInShop
   try {
     const res = await axios({
       url: `https://pos-restaurant-be-dev.azurewebsites.net/pos/data/dinner_table/list_in_shop?shopId=${id}`,
-      headers: { Authorization: "Bearer WMQCxhIClqtIX14yEiu4BA==" },
+      headers: { Authorization: "Bearer UtvdMi0zr3YdWyo3CSs7Cg==" },
     });
     if (res.error) throw res.error;
     console.log("fetchTableListInShop--------------", res);
@@ -36,11 +36,11 @@ export const fetchTableListInShop = createAsyncThunk("table/fetchTableListInShop
   }
 });
 
-export const fetchTableListInArea = createAsyncThunk("table/fetchTableListInArea", async (id, { rejectWithValue }) => {
+export const fetchTableListInArea = createAsyncThunk("table/fetchTableListInArea", async (shopId, { rejectWithValue }) => {
   try {
     const res = await axios({
-      url: `https://pos-restaurant-be-dev.azurewebsites.net/pos/data/table/list_in_shop?shopId=${id}`,
-      headers: { Authorization: "Bearer WMQCxhIClqtIX14yEiu4BA==" },
+      url: `https://pos-restaurant-be-dev.azurewebsites.net/pos/data/dinner_table/list_in_area?shopId=${shopId}&areaId=${areaId}`,
+      headers: { Authorization: "Bearer UtvdMi0zr3YdWyo3CSs7Cg==" },
     });
     if (res.error) throw res.error;
     console.log("fetchTableListInArea--------------", res);
@@ -55,8 +55,8 @@ export const saveTable = createAsyncThunk("table/saveTable", async (tableObj, { 
   try {
     const res = await axios({
       method: "post",
-      url: "https://pos-restaurant-be-dev.azurewebsites.net/pos/data/table/save",
-      headers: { Authorization: "Bearer WMQCxhIClqtIX14yEiu4BA==" },
+      url: "https://pos-restaurant-be-dev.azurewebsites.net/pos/data/dinner_table/save",
+      headers: { Authorization: "Bearer UtvdMi0zr3YdWyo3CSs7Cg==" },
       data: tableObj,
     });
     if (res.error) throw res.error;
@@ -72,7 +72,7 @@ export const deleteTable = createAsyncThunk("table/deleteTable", async (id, { re
     const res = await axios({
       method: "delete",
       url: `https://pos-restaurant-be-dev.azurewebsites.net/pos/data/table/delete/${id}`,
-      headers: { Authorization: "Bearer WMQCxhIClqtIX14yEiu4BA==" },
+      headers: { Authorization: "Bearer UtvdMi0zr3YdWyo3CSs7Cg==" },
     });
     if (res.error) throw res.error;
     console.log("deleteTable--------------", res);
@@ -87,10 +87,10 @@ const TableSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: {
-    [fetchTableList.pending]: (state) => {
+    [fetchTableListInShop.pending]: (state) => {
       state.status = config.API_STATUS.LOADING;
     },
-    [fetchTableList.fulfilled]: (state, action) => {
+    [fetchTableListInShop.fulfilled]: (state, action) => {
       state.status = config.API_STATUS.SUCCEEDED;
       state.table = action.payload.data.data.list;
       state.error = null;
@@ -98,7 +98,23 @@ const TableSlice = createSlice({
       // CacheStorage.setItem(config.TOKEN_SYMBOL, action.payload.token);
       // CacheStorage.setItem(config.TOKEN_IS_ADMIN, false);
     },
-    [fetchTableList.rejected]: (state, action) => {
+    [fetchTableListInShop.rejected]: (state, action) => {
+      state.status = config.API_STATUS.FAILED;
+      // message.error(action.payload);
+    },
+    [fetchTableListInArea.pending]: (state) => {
+      state.status = config.API_STATUS.LOADING;
+    },
+    [fetchTableListInArea.fulfilled]: (state, action) => {
+      state.status = config.API_STATUS.SUCCEEDED;
+      state.table = action.payload.data.data.list;
+      // state.table = action.payload.data.data.list;
+      state.error = null;
+      // state.token = action.payload.token;
+      // CacheStorage.setItem(config.TOKEN_SYMBOL, action.payload.token);
+      // CacheStorage.setItem(config.TOKEN_IS_ADMIN, false);
+    },
+    [fetchTableListInArea.rejected]: (state, action) => {
       state.status = config.API_STATUS.FAILED;
       // message.error(action.payload);
     },
@@ -107,7 +123,7 @@ const TableSlice = createSlice({
     },
     [saveTable.fulfilled]: (state, action) => {
       state.status = config.API_STATUS.SUCCEEDED;
-      // state.table = action.payload;
+      state.table = action.payload.data.data.list;
       state.error = null;
       // state.token = action.payload.token;
       // CacheStorage.setItem(config.TOKEN_SYMBOL, action.payload.token);

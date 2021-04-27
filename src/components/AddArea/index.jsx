@@ -1,11 +1,8 @@
 import React, { useState } from "react";
 import { Form, Input, Modal } from "antd";
 import PropTypes from "prop-types";
-
 import { useSelector, useDispatch } from "react-redux";
-
 import { saveArea, fetchAreaList } from "../../slices/areaSlice";
-// import { selectAreaList } from "../../slices/areaSlice";
 
 import "./index.scss";
 
@@ -13,15 +10,6 @@ const Index = (props) => {
   const dispatch = useDispatch();
   const [form] = Form.useForm();
   // const [isUpdate, setIsUpdate] = useState(false);
-
-  console.log(props.name);
-
-  const saveModal = () => {
-    form.validateFields().then((res) => {
-      console.log(res);
-      props.hideModel(false);
-    });
-  };
 
   const hideModal = () => {
     form.resetFields();
@@ -45,21 +33,6 @@ const Index = (props) => {
       await dispatch(saveArea(areaObj));
       await dispatch(fetchAreaList(1));
     });
-    // form.validateFields((err, values) => {
-    // if (!err) {
-    // props.hideModel(false);
-    // const { areaname } = values;
-    // console.log(areaname);
-    // const { parentId, categoryName } = values;
-    // form.resetFields();
-    // const result = await reqAddCategory({ parentId, categoryName });
-    /* below is diff from origin */
-    // if (result.status === 0) {
-    // console.log(parentId);
-    // this.getCategorys(parentId);
-    // }
-    // }
-    // });
   };
 
   return (
@@ -92,7 +65,7 @@ const Index = (props) => {
 Index.propTypes = {
   hideModel: PropTypes.func.isRequired,
   visible: PropTypes.bool.isRequired,
-  id: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
   isUpdate: PropTypes.bool.isRequired,
 };

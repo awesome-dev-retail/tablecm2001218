@@ -11,7 +11,7 @@ import AddArea from "../../components/AddArea";
 export default function MenuList() {
   const [showArea, setShowArea] = useState(false);
   // const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const [areaList, setAreaList] = useState([]);
+  // const [areaList, setAreaList] = useState([]);
   const [areaId, setAreaId] = useState(0);
   const [areaName, setAreaName] = useState("");
 
@@ -54,12 +54,16 @@ export default function MenuList() {
     // console.log("useEffect");
   }, []);
 
-  const handleSaveArea = (areaId, areaName, isUpdate) => {
+  const handleSaveArea = (isUpdate, areaId, areaName) => {
     setShowArea(!showArea);
-    console.log(areaId, areaName);
-    setAreaId(areaId);
-    setAreaName(areaName);
-    setIsUpdate(true);
+    if (isUpdate) {
+      setAreaId(areaId);
+      setAreaName(areaName);
+      setIsUpdate(true);
+    } else {
+      setAreaId(null);
+      setIsUpdate(false);
+    }
   };
   return (
     <Fragment>
@@ -74,7 +78,7 @@ export default function MenuList() {
             <div key={item.id} className="menu-item">
               {/* <Badge size="small" count={5} offset={[5]}> */}
               <div>{item.area_name}</div>
-              {isAdmin && <EditOutlined onClick={() => handleSaveArea(item.id, item.area_name)} />}
+              {isAdmin && <EditOutlined onClick={() => handleSaveArea(true, item.id, item.area_name)} />}
               {isAdmin && <DeleteOutlined onClick={() => showDeleteConfirm(item.id)} />}
               {/* {isAdmin && <DeleteOutlined onClick={() => setShowDeleteModal(!ShowDeleteModal)} />} */}
               {/* </Badge> */}
@@ -97,7 +101,7 @@ export default function MenuList() {
             <span>Second Floor</span>
           </Badge>
         </div> */}
-        <div className="menu-item" onClick={() => handleSaveArea()}>
+        <div className="menu-item" onClick={() => handleSaveArea(false)}>
           <PlusOutlined />
           Add
         </div>
