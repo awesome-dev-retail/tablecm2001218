@@ -139,26 +139,6 @@ function TableList(props) {
 
   const { confirm } = Modal;
 
-  function showDeleteConfirm(id) {
-    confirm({
-      title: "Are you sure to delete this item?",
-      icon: <ExclamationCircleOutlined />,
-      // content: "Some descriptions",
-      okText: "Yes",
-      okType: "danger",
-      cancelText: "No",
-      async onOk() {
-        // console.log("OK");
-        // console.log(id);
-        await dispatch(deletetable(id));
-        await dispatch(fetchTableListInShop(1));
-      },
-      onCancel() {
-        console.log("Cancel");
-      },
-    });
-  }
-
   const dispatch = useDispatch();
   const tableListFromSlice = useSelector((state) => selectTableList(state)) || [];
   console.log("tableListFromSlice", tableListFromSlice);
@@ -171,39 +151,56 @@ function TableList(props) {
     return type === "eating" ? "eating" : type === "waitPlanOrder" ? "wait-plan-order" : "empty";
   };
 
-  const handleClick = () => {
+  const redirectToOrder = () => {
     // eslint-disable-next-line react/prop-types
-    // props.history.push("/order");
+    props.history.push("/order");
   };
 
   const handleSaveTable = (tableId, tableName, capacity) => {
     console.log(event.target);
     event.stopPropagation();
     setShowTable(!showTable);
-    // if (type === "edit") {
-    // console.log(tableId, tableName);
     setTableId(tableId);
     setTableName(tableName);
     setCapacity(capacity);
-    // setIsUpdate(true);
-    // } elseif(type === "add") {
-
-    // }
   };
+
+  function showDeleteConfirm(id) {
+    confirm({
+      title: "Are you sure to delete this item?",
+      icon: <ExclamationCircleOutlined />,
+      // content: "Some descriptions",
+      okText: "Yes",
+      okType: "danger",
+      cancelText: "No",
+      async onOk() {
+        await dispatch(deleteTable(id));
+        await dispatch(fetchTableListInShop(1));
+      },
+      onCancel() {
+        console.log("Cancel");
+      },
+    });
+  }
 
   return (
     <Fragment>
       <div className="table-list">
         {tableListFromSlice.map((item) => (
-          <div key={item.id} className={`table-item ${getClass(item.status)}`} onClick={() => handleClick()}>
+          <div key={item.id} className={`table-item ${getClass(item.status)}`}>
             {/* <div key={item.id} className={`table-item ${getClass(item.status)}`} onClick={() => setShowTableInfo(true)}> */}
-            <p className="table-id">{item.id}</p>
-            {item.money && <div className="money">${item.money}</div>}
-            {item.combination && <div>Share {item.combination} Tables</div>}
-            {/* {item.combination && <div>拼{item.combination}桌</div>} */}
-            {item.status === "waitPlanOrder" && <div className="wait-plan-order-text">To be ordered</div>}
-            <div>
-              {item.tag} {item.time && <span>{item.time}</span>}
+            <div
+              onClick={() => {
+                redirectToOrder();
+              }}>
+              <p className="table-id">{item.id}</p>
+              {item.money && <div className="money">${item.money}</div>}
+              {item.combination && <div>Share {item.combination} Tables</div>}
+              {/* {item.combination && <div>拼{item.combination}桌</div>} */}
+              {item.status === "waitPlanOrder" && <div className="wait-plan-order-text">To be ordered</div>}
+              <div>
+                {item.tag} {item.time && <span>{item.time}</span>}
+              </div>
             </div>
             <div className="edit-delete">
               {isAdmin && <EditOutlined onClick={(event) => handleSaveTable(item.id, item.table_name, item.capacity)} />}
