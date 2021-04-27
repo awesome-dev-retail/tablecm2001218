@@ -135,7 +135,7 @@ function TableList(props) {
   ];
   const [tableList, setTableList] = useState(tableListData);
 
-  // const [showTableInfo, setShowTableInfo] = useState(false);
+  const [showTableInfo, setShowTableInfo] = useState(false);
 
   const { confirm } = Modal;
 
