@@ -173,13 +173,15 @@ function TableList(props) {
 
   const handleClick = () => {
     // eslint-disable-next-line react/prop-types
-    props.history.push("/order");
+    // props.history.push("/order");
   };
 
   const handleSaveTable = (tableId, tableName, capacity) => {
+    console.log(event.target);
+    event.stopPropagation();
     setShowTable(!showTable);
     // if (type === "edit") {
-    console.log(tableId, tableName);
+    // console.log(tableId, tableName);
     setTableId(tableId);
     setTableName(tableName);
     setCapacity(capacity);
@@ -204,7 +206,7 @@ function TableList(props) {
               {item.tag} {item.time && <span>{item.time}</span>}
             </div>
             <div className="edit-delete">
-              {isAdmin && <EditOutlined onClick={() => handleSaveTable(item.id, item.table_name, item.capacity)} />}
+              {isAdmin && <EditOutlined onClick={(event) => handleSaveTable(item.id, item.table_name, item.capacity)} />}
               {isAdmin && <DeleteOutlined onClick={() => showDeleteConfirm(item.id)} />}
             </div>
           </div>

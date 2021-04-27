@@ -6,7 +6,7 @@ import axios from "axios";
 // import { history } from "../App";
 
 const initialState = {
-  area: null,
+  area: [],
   addedArea: null,
   status: "",
   error: null,
@@ -25,7 +25,7 @@ export const fetchAreaList = createAsyncThunk("area/fetchAreaList", async (id, {
   try {
     const res = await axios({
       url: `https://pos-restaurant-be-dev.azurewebsites.net/pos/data/area/list_in_shop?shopId=${id}`,
-      headers: { Authorization: "Bearer UtvdMi0zr3YdWyo3CSs7Cg==" },
+      headers: { Authorization: "Bearer y6tzxAJ7yIuZRrceaQC6jg==" },
     });
     if (res.error) throw res.error;
     console.log("fetchAreaList--------------", res);
@@ -41,7 +41,7 @@ export const saveArea = createAsyncThunk("area/saveArea", async (areaObj, { reje
     const res = await axios({
       method: "post",
       url: "https://pos-restaurant-be-dev.azurewebsites.net/pos/data/area/save",
-      headers: { Authorization: "Bearer UtvdMi0zr3YdWyo3CSs7Cg==" },
+      headers: { Authorization: "Bearer y6tzxAJ7yIuZRrceaQC6jg==" },
       data: areaObj,
     });
     if (res.error) throw res.error;
@@ -57,7 +57,7 @@ export const deleteArea = createAsyncThunk("area/deleteArea", async (id, { rejec
     const res = await axios({
       method: "delete",
       url: `https://pos-restaurant-be-dev.azurewebsites.net/pos/data/area/delete/${id}`,
-      headers: { Authorization: "Bearer UtvdMi0zr3YdWyo3CSs7Cg==" },
+      headers: { Authorization: "Bearer y6tzxAJ7yIuZRrceaQC6jg==" },
     });
     if (res.error) throw res.error;
     console.log("deleteArea--------------", res);
