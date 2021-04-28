@@ -195,7 +195,7 @@ function TableList(props) {
               {item.money && <div className="money">${item.money}</div>}
               {item.combination && <div>Share {item.combination} Tables</div>}
               {/* {item.combination && <div>拼{item.combination}桌</div>} */}
-              {item.status === "waitPlanOrder" && <div className="wait-plan-order-text">To be ordered</div>}
+              {item.status === "Available" && <div className="wait-plan-order-text">To be ordered</div>}
               <div>
                 {item.tag} {item.time && <span>{item.time}</span>}
               </div>

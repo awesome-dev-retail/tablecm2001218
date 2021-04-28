@@ -196,8 +196,8 @@ function DishList(props) {
                 addToOrderList();
               }}>
               <p className="table-id">{item.description}</p>
-              {item.money && <div className="money">${item.money}</div>}
-              {item.combination && <div>Share {item.combination} Dishs</div>}
+              {item.unit_price && <div className="money">${item.unit_price}</div>}
+              {/* {item.combination && <div>Share {item.combination} Dishs</div>} */}
               {/* {item.status === "waitPlanOrder" && <div className="wait-plan-order-text">To be ordered</div>}
               <div>
                 {item.tag} {item.time && <span>{item.time}</span>}

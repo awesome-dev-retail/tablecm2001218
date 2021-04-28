@@ -206,11 +206,11 @@
         box-sizing: border-box;
         display: flex;
         flex-direction: column;
-        justify-content: space- between;
+        justify-content: space-between;
         // box-shadow: 0 0 3px 1px #fff;
         :first-child {
           box-sizing: border-box;
-          height: 80px;
+          // height: 40px;
         }
         .table-id {
           font-weight: bold;
@@ -222,7 +222,7 @@
           color: #fff;
         }
         .wait-plan-order-text {
-          font-weight: bold;
+          // font-weight: bold;
           font-size: 20px;
         }
         &.eating {
@@ -236,11 +236,11 @@
         .edit-delete {
           display: flex;
           justify-content: flex-end;
-          height: 50px;
+          height: 20px;
         }
         .anticon-edit,
         .anticon-delete {
-          display: none;
+          // display: none;
           margin-right: 5px;
         }
         &.table-item:hover .anticon-edit,
