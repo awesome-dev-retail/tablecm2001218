@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Form, Input, Modal } from "antd";
 import PropTypes from "prop-types";
 import { useSelector, useDispatch } from "react-redux";
-import { saveArea, fetchAreaList } from "../../slices/areaSlice";
+import { saveMenu, fetchMenuList } from "../../slices/menuSlice";
 
 import "./index.scss";
 
@@ -16,23 +16,22 @@ const Index = (props) => {
     props.hideModel(false);
   };
 
-  const addArea = () => {
+  const addMenu = () => {
     form.validateFields().then(async (res) => {
-      // console.log(res);
+      // console.log("res", res);
       form.resetFields();
       props.hideModel(false);
-      const areaObj = {
+      const menuObj = {
         // id: 1, // [not required for creating]
         id: props.id,
         cid: 1, // [required] int
-        shop_id: 1, // [required] int
-        area_name: res.areaName, // [required] string
+        class_name: res.menuName, // [required] string
         // active: true, // [not required for creating]
-        // description: "The Hall Area",
+        // description: "The Hall Menu",
       };
-      console.log(areaObj);
-      await dispatch(saveArea(areaObj));
-      await dispatch(fetchAreaList(1));
+      // console.log("menuObj", menuObj);
+      await dispatch(saveMenu(menuObj));
+      await dispatch(fetchMenuList(1));
     });
   };
 
@@ -40,22 +39,22 @@ const Index = (props) => {
     <Modal
       className="area-container"
       width={500}
-      title="添加区域"
+      title="Add Menu"
       destroyOnClose={true}
       visible={props.visible}
-      // onOk={addArea}
+      // onOk={addMenu}
       // onOk={saveModal}
       onCancel={hideModal}
       footer={[
-        <div className="model-btn" key="btn" onClick={addArea}>
+        <div className="model-btn" key="btn" onClick={addMenu}>
           {/* <div className="model-btn" key="btn" onClick={hideModal}> */}
           Save
         </div>,
       ]}>
       <div className="model-content">
         <Form form={form}>
-          <Form.Item label="Area Name" colon={false} name="areaName" rules={[{ required: true, message: "Please input area name!" }]}>
-            <Input placeholder="eg: hall" defaultValue={props.isUpdate ? props.name : ""} />
+          <Form.Item label="Menu Name" colon={false} name="menuName" rules={[{ required: true, message: "Please input menu name!" }]}>
+            <Input placeholder="eg: Soup" defaultValue={props.id ? props.name : ""} />
           </Form.Item>
         </Form>
       </div>
@@ -66,9 +65,9 @@ const Index = (props) => {
 Index.propTypes = {
   hideModel: PropTypes.func.isRequired,
   visible: PropTypes.bool.isRequired,
-  id: PropTypes.number.isRequired,
-  name: PropTypes.string.isRequired,
-  isUpdate: PropTypes.bool.isRequired,
+  id: PropTypes.number,
+  name: PropTypes.string,
+  // isUpdate: PropTypes.bool.isRequired,
 };
 
 export default Index;

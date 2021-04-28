@@ -1,28 +1,28 @@
 .order-page-container {
-  .header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background: #fff;
-    // padding: 1.5rem 2rem;
-    padding: 15px 20px;
-    box-shadow: 0 2px 4px -4px black;
+  // .header {
+  //   display: flex;
+  //   align-items: center;
+  //   justify-content: space-between;
+  //   background: #fff;
+  //   // padding: 1.5rem 2rem;
+  //   padding: 15px 20px;
+  //   box-shadow: 0 2px 4px -4px black;
 
-    font-size: 20px;
-    // font-size: 2rem;
-    font-weight: bold;
-    .anticon {
-      margin-right: 10px;
-      font-size: 22px;
-      cursor: pointer;
-    }
-    > div:last-of-type {
-      .anticon {
-        margin-right: 20px;
-        font-size: 28px;
-      }
-    }
-  }
+  //   font-size: 20px;
+  //   // font-size: 2rem;
+  //   font-weight: bold;
+  //   .anticon {
+  //     margin-right: 10px;
+  //     font-size: 22px;
+  //     cursor: pointer;
+  //   }
+  //   > div:last-of-type {
+  //     .anticon {
+  //       margin-right: 20px;
+  //       font-size: 28px;
+  //     }
+  //   }
+  // }
   .main {
     display: flex;
     .statistics {
@@ -246,7 +246,24 @@
       padding-top: 40px;
       .menu-item {
         flex-basis: 80px;
+        width: 50px;
+        text-align: center;
         cursor: pointer;
+        > div {
+          margin-right: 3px;
+        }
+        .anticon-edit,
+        .anticon-delete {
+          display: none;
+          margin-right: 5px;
+        }
+      }
+      .menu-item:hover {
+        color: #ea7e52;
+      }
+      .menu-item:hover .anticon-edit,
+      .menu-item:hover .anticon-delete {
+        display: inline-block;
       }
     }
   }
