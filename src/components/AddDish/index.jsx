@@ -18,7 +18,8 @@ const Index = (props) => {
       className="add-dishes-container"
       width={600}
       destroyOnClose={true}
-      title="快速添加菜品"
+      title="Add Dish"
+      // title="快速添加菜品"
       visible={props.visible}
       onOk={hideModal}
       onCancel={() => props.hideModel()}
@@ -32,23 +33,24 @@ const Index = (props) => {
       ]}>
       <div className="model-content">
         <Form form={form}>
-          <Form.Item label="菜品名称" colon={false} name="name" rules={[{ required: true, message: "请输入菜品名称!" }]}>
-            <Input placeholder="请输入" />
+          <Form.Item label="Dish Name" colon={false} name="name" rules={[{ required: true, message: "Please input dish name!" }]}>
+            <Input placeholder="please input dish name" />
           </Form.Item>
-          <Form.Item label="菜品分类" colon={false} name="type" rules={[{ required: true, message: "请选择菜品分类!" }]}>
+          <Form.Item label="Dish Category" colon={false} name="type" rules={[{ required: true, message: "Please input dish category!" }]}>
             <Select>
-              {["火锅", "中餐"].map((item) => (
+              {["Starter", "Soup"].map((item) => (
                 <Option key={item} value={item}>
                   {item}
                 </Option>
               ))}
             </Select>
           </Form.Item>
-          <Form.Item label="售卖价" colon={false} name="price" rules={[{ required: true, message: "请输入售卖价!" }]}>
-            <Input placeholder="请输入" suffix="元" />
+          <Form.Item label="Price($)" colon={false} name="price" rules={[{ required: true, message: "Please input price!" }]}>
+            <Input placeholder="Please input price" />
+            {/* <Input placeholder="Please input price" suffix="$" /> */}
           </Form.Item>
           <p className="tip" onClick={props.showMoreTypeSetup}>
-            更多分类设置
+            More Settings
           </p>
         </Form>
       </div>
@@ -57,9 +59,12 @@ const Index = (props) => {
 };
 
 Index.propTypes = {
+  id: PropTypes.number,
   hideModel: PropTypes.func.isRequired,
   showMoreTypeSetup: PropTypes.func.isRequired,
   visible: PropTypes.bool.isRequired,
+  description: PropTypes.string,
+  price: PropTypes.number,
 };
 
 export default Index;

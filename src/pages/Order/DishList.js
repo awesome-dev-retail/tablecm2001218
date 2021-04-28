@@ -13,8 +13,8 @@ import AddDish from "../../components/AddDish";
 function DishList(props) {
   const [showDish, setShowDish] = useState(false);
   const [dishId, setDishId] = useState(0);
-  const [dishName, setDishName] = useState("");
-  const [capacity, setCapacity] = useState(0);
+  const [description, setDescription] = useState("");
+  const [price, setPrice] = useState(0);
   const [isAdmin, setIsAdmin] = useState(true);
 
   // const [isUpdate, setIsUpdate] = useState(false);
@@ -156,11 +156,11 @@ function DishList(props) {
   //   props.history.push("/order");
   // };
 
-  const handleSaveDish = (dishId, dishName, capacity) => {
+  const handleSaveDish = (dishId, description, price) => {
     setShowDish(true);
     setDishId(dishId);
-    setDishName(dishName);
-    setCapacity(capacity);
+    setDescription(description);
+    setPrice(price);
   };
 
   function showDeleteConfirm(id) {
@@ -183,33 +183,35 @@ function DishList(props) {
 
   return (
     <Fragment>
-      <div className="dish-list">
+      <div className="table-list">
         {dishListFromSlice.map((item) => (
-          <div key={item.id} className={`dish-item ${getClass(item.status)}`}>
+          <div key={item.id} className={`table-item ${getClass(item.status)}`}>
             {/* <div key={item.id} className={`dish-item ${getClass(item.status)}`} onClick={() => setShowDishInfo(true)}> */}
-            <div>
-              <p className="dish-id">{item.description}</p>
+            <div
+              onClick={() => {
+                addToOrderList();
+              }}>
+              <p className="table-id">{item.description}</p>
               {item.money && <div className="money">${item.money}</div>}
               {item.combination && <div>Share {item.combination} Dishs</div>}
-              {/* {item.combination && <div>拼{item.combination}桌</div>} */}
-              {item.status === "waitPlanOrder" && <div className="wait-plan-order-text">To be ordered</div>}
+              {/* {item.status === "waitPlanOrder" && <div className="wait-plan-order-text">To be ordered</div>}
               <div>
                 {item.tag} {item.time && <span>{item.time}</span>}
-              </div>
+              </div> */}
             </div>
             <div className="edit-delete">
-              {isAdmin && <EditOutlined onClick={(event) => handleSaveDish(item.id, item.dish_name, item.capacity)} />}
+              {isAdmin && <EditOutlined onClick={(event) => handleSaveDish(item.id, item.description, item.unit_price)} />}
               {isAdmin && <DeleteOutlined onClick={() => showDeleteConfirm(item.id)} />}
             </div>
           </div>
         ))}
-        <div className="dish-item add-dish" onClick={() => handleSaveDish()}>
+        <div className="table-item add-table" onClick={() => handleSaveDish()}>
           <PlusOutlined />
           <div>Add Dish</div>
           {/* <div>添加桌台</div> */}
         </div>
       </div>
-      <AddDish visible={showDish} hideModel={setShowDish} id={dishId} name={dishName} capacity={capacity}></AddDish>
+      <AddDish visible={showDish} hideModel={setShowDish} id={dishId} description={description} price={price}></AddDish>
     </Fragment>
   );
 }

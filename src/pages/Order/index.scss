@@ -198,8 +198,8 @@
         box-sizing: border-box;
         display: flex;
         flex-direction: column;
-        justify-content: center;
-        // justify-content: space-between;
+        // justify-content: center;
+        justify-content: space-between;
         // box-shadow: 0 0 3px 1px #fff;
         .table-id {
           height: 50px;
@@ -223,6 +223,21 @@
         &.wait-plan-order {
           background: #225258;
           color: #fff;
+        }
+        .edit-delete {
+          display: flex;
+          justify-content: flex-end;
+          align-items: flex-end;
+          height: 50px;
+        }
+        .anticon-edit,
+        .anticon-delete {
+          display: none;
+          margin-right: 5px;
+        }
+        &.table-item:hover .anticon-edit,
+        &.table-item:hover .anticon-delete {
+          display: inline-block;
         }
       }
       .add-table {

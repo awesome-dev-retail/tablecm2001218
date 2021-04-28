@@ -25,7 +25,7 @@ export const fetchTableListInShop = createAsyncThunk("table/fetchTableListInShop
   try {
     const res = await axios({
       url: `https://pos-restaurant-be-dev.azurewebsites.net/pos/data/dinner_table/list_in_shop?shopId=${id}`,
-      headers: { Authorization: "Bearer sPKrlv3_1C7xA48GC9NyxA==" },
+      headers: { Authorization: "Bearer KoGxkrVLzAgiuKEAcCl8vg==" },
     });
     if (res.error) throw res.error;
     console.log("fetchTableListInShop--------------", res);
@@ -40,7 +40,7 @@ export const fetchTableListInArea = createAsyncThunk("table/fetchTableListInArea
   try {
     const res = await axios({
       url: `https://pos-restaurant-be-dev.azurewebsites.net/pos/data/dinner_table/list_in_area?shopId=${shopId}&areaId=${areaId}`,
-      headers: { Authorization: "Bearer sPKrlv3_1C7xA48GC9NyxA==" },
+      headers: { Authorization: "Bearer KoGxkrVLzAgiuKEAcCl8vg==" },
     });
     if (res.error) throw res.error;
     console.log("fetchTableListInArea--------------", res);
@@ -56,7 +56,7 @@ export const saveTable = createAsyncThunk("table/saveTable", async (tableObj, { 
     const res = await axios({
       method: "post",
       url: "https://pos-restaurant-be-dev.azurewebsites.net/pos/data/dinner_table/save",
-      headers: { Authorization: "Bearer sPKrlv3_1C7xA48GC9NyxA==" },
+      headers: { Authorization: "Bearer KoGxkrVLzAgiuKEAcCl8vg==" },
       data: tableObj,
     });
     if (res.error) throw res.error;
@@ -72,7 +72,7 @@ export const deleteTable = createAsyncThunk("table/deleteTable", async (id, { re
     const res = await axios({
       method: "delete",
       url: `https://pos-restaurant-be-dev.azurewebsites.net/pos/data/dinner_table/delete/${id}`,
-      headers: { Authorization: "Bearer sPKrlv3_1C7xA48GC9NyxA==" },
+      headers: { Authorization: "Bearer KoGxkrVLzAgiuKEAcCl8vg==" },
     });
     if (res.error) throw res.error;
     console.log("deleteTable--------------", res);
