@@ -1,15 +1,41 @@
 import React from "react";
 import { Form, Input, Modal, Select } from "antd";
 import PropTypes from "prop-types";
+
+import { useSelector, useDispatch } from "react-redux";
+import { saveDish, fetchDishListInShop } from "../../slices/dishSlice";
+
 import "./index.scss";
 
 const { Option } = Select;
 const Index = (props) => {
+  const dispatch = useDispatch();
   const [form] = Form.useForm();
   const hideModal = () => {
     form.validateFields().then((res) => {
       console.log(res);
-      props.hideModel();
+      props.hideModel(false);
+    });
+  };
+  const addDish = () => {
+    form.validateFields().then(async (res) => {
+      console.log("addDish---------------------", res);
+      form.resetFields();
+      props.hideModel(false);
+      const dishObj = {
+        id: props.id, // [not required for creating]
+        // id: 5,
+        // id: props.id ? props.id : null,
+        cid: 1, // [required] int
+        class_id: 1, // [required] int
+        dish_code: Date.now() + "",
+        description: res.name, // [required] string
+        unit_price: res.price * 1, // [required] int
+        UOM: "EACH",
+      };
+      console.log("dishObj", dishObj);
+      await dispatch(saveDish(dishObj));
+      await dispatch(fetchDishListInShop(1));
     });
   };
 
@@ -27,7 +53,7 @@ const Index = (props) => {
         // <div className="model-btn" key="btn" onClick={hideModal}>
         //   保存
         // </div>,
-        <div className="model-btn" key="btn1" onClick={hideModal}>
+        <div className="model-btn" key="btn1" onClick={addDish}>
           Save
         </div>,
       ]}>
@@ -38,7 +64,7 @@ const Index = (props) => {
           </Form.Item>
           <Form.Item label="Dish Category" colon={false} name="type" rules={[{ required: true, message: "Please input dish category!" }]}>
             <Select>
-              {["Starter", "Soup"].map((item) => (
+              {["STARTERS", "SIDE DISHES", "MAIN COURSE", "DESSERT"].map((item) => (
                 <Option key={item} value={item}>
                   {item}
                 </Option>

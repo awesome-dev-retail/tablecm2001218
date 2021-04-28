@@ -181,6 +181,10 @@ function DishList(props) {
     });
   }
 
+  const addToOrderList = () => {
+    return;
+  };
+
   return (
     <Fragment>
       <div className="table-list">
