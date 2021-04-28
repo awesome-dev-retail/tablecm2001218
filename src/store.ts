@@ -3,6 +3,7 @@ import authReducer from "./slices/authSlice";
 import areaReducer from "./slices/areaSlice";
 import tableReducer from "./slices/tableSlice";
 import menuReducer from "./slices/menuSlice";
+import dishReducer from "./slices/dishSlice";
 
 export default configureStore({
   reducer: {
@@ -10,6 +11,7 @@ export default configureStore({
     Area: areaReducer,
     Table: tableReducer,
     Menu: menuReducer,
+    Dish: dishReducer,
   },
   middleware: getDefaultMiddleware({
     serializableCheck: {
@@ -24,6 +26,10 @@ export default configureStore({
         "menu/fetchMenuList/fulfilled",
         "menu/saveMenu/fulfilled",
         "menu/deleteMenu/fulfilled",
+
+        "dish/fetchDishList/fulfilled",
+        "dish/saveDish/fulfilled",
+        "dish/deleteDish/fulfilled",
       ],
       // ignoredActions: ["user/fetchUser/fulfilled"],
     },
