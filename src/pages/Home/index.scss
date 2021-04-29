@@ -211,6 +211,7 @@
         :first-child {
           box-sizing: border-box;
           // height: 40px;
+          flex-basis: 80%;
         }
         .table-id {
           font-weight: bold;
@@ -221,31 +222,35 @@
           // font-weight: bold;
           color: #fff;
         }
-        .wait-plan-order-text {
-          // font-weight: bold;
-          font-size: 20px;
-        }
-        &.eating {
+        // .wait-plan-order-text {
+        //   // font-weight: bold;
+        //   font-size: 20px;
+        // }
+        &.Occupied {
           background: #ea7e52;
           color: #fff;
         }
-        &.wait-plan-order {
-          background: #225258;
-          color: #fff;
+        &.Available {
+          background: #fff;
+          // background: #225258;
+          color: grey;
         }
         .edit-delete {
           display: flex;
           justify-content: flex-end;
           height: 20px;
+          text-align: right;
         }
         .anticon-edit,
         .anticon-delete {
-          // display: none;
+          display: none;
+          flex-basis: 10%;
           margin-right: 5px;
         }
         &.table-item:hover .anticon-edit,
         &.table-item:hover .anticon-delete {
           display: inline-block;
+          flex-basis: 10%;
         }
       }
       .add-table {

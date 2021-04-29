@@ -5,16 +5,20 @@ import { Badge, Modal, Button } from "antd";
 import { PlusOutlined, EditOutlined, DeleteOutlined, ExclamationCircleOutlined } from "@ant-design/icons";
 import { useSelector, useDispatch } from "react-redux";
 
-import { fetchTableListInShop, deleteTable } from "../../slices/tableSlice";
+import { fetchTableListInShop, saveTable, deleteTable } from "../../slices/tableSlice";
 import { selectTableList } from "../../slices/tableSlice";
 
 import AddTable from "../../components/AddTable";
 
 function TableList(props) {
   const [showTable, setShowTable] = useState(false);
-  const [tableId, setTableId] = useState(0);
-  const [tableName, setTableName] = useState("");
-  const [capacity, setCapacity] = useState(0);
+
+  const [table, setTable] = useState({});
+
+  // const [tableId, setTableId] = useState(0);
+  // const [tableName, setTableName] = useState("");
+  // const [capacity, setCapacity] = useState(0);
+
   const [isAdmin, setIsAdmin] = useState(true);
 
   // const [isUpdate, setIsUpdate] = useState(false);
@@ -151,16 +155,24 @@ function TableList(props) {
     return type === "eating" ? "eating" : type === "waitPlanOrder" ? "wait-plan-order" : "empty";
   };
 
-  const redirectToOrder = () => {
+  const redirectToOrder = async (tableObj) => {
+    const obj = Object.assign({}, tableObj);
+    obj.status = "Occupied";
+    console.log("obj", obj);
+    await dispatch(saveTable(obj));
+    dispatch(fetchTableListInShop(1));
     // eslint-disable-next-line react/prop-types
     props.history.push("/order");
   };
 
-  const handleSaveTable = (tableId, tableName, capacity) => {
+  const handleSaveTable = (tableObj) => {
     setShowTable(true);
-    setTableId(tableId);
-    setTableName(tableName);
-    setCapacity(capacity);
+    // const table = { id: table.id, name: table.table_name, capacity: table.capacity };
+    const table = Object.assign({}, tableObj);
+    setTable(table);
+    // setTableId(tableId);
+    // setTableName(tableName);
+    // setCapacity(capacity);
   };
 
   function showDeleteConfirm(id) {
@@ -185,11 +197,12 @@ function TableList(props) {
     <Fragment>
       <div className="table-list">
         {tableListFromSlice.map((item) => (
-          <div key={item.id} className={`table-item ${getClass(item.status)}`}>
+          <div key={item.id} className={`table-item ${item.status}`}>
+            {/* <div key={item.id} className={`table-item ${getClass(item.status)}`}> */}
             {/* <div key={item.id} className={`table-item ${getClass(item.status)}`} onClick={() => setShowTableInfo(true)}> */}
             <div
               onClick={() => {
-                redirectToOrder();
+                redirectToOrder(item);
               }}>
               <p className="table-id">{item.table_name}</p>
               {item.money && <div className="money">${item.money}</div>}
@@ -201,7 +214,8 @@ function TableList(props) {
               </div>
             </div>
             <div className="edit-delete">
-              {isAdmin && <EditOutlined onClick={(event) => handleSaveTable(item.id, item.table_name, item.capacity)} />}
+              {isAdmin && <EditOutlined onClick={(event) => handleSaveTable(item)} />}
+              {/* {isAdmin && <EditOutlined onClick={(event) => handleSaveTable(item.id, item.table_name, item.capacity)} />} */}
               {isAdmin && <DeleteOutlined onClick={() => showDeleteConfirm(item.id)} />}
             </div>
           </div>
@@ -212,7 +226,8 @@ function TableList(props) {
           {/* <div>添加桌台</div> */}
         </div>
       </div>
-      <AddTable visible={showTable} hideModel={setShowTable} id={tableId} name={tableName} capacity={capacity}></AddTable>
+      <AddTable visible={showTable} hideModel={setShowTable} tableObj={table}></AddTable>
+      {/* <AddTable visible={showTable} hideModel={setShowTable} id={tableId} name={tableName} capacity={capacity}></AddTable> */}
     </Fragment>
   );
 }
