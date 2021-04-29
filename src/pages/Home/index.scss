@@ -232,9 +232,10 @@
           color: #fff;
         }
         &.Available {
-          background: #fff;
+          background-color: rgb(92, 223, 41);
+          // background: #fff;
           // background: #225258;
-          color: grey;
+          color: #fff;
         }
         .edit-delete {
           display: flex;
