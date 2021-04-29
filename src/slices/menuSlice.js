@@ -25,7 +25,7 @@ export const fetchMenuList = createAsyncThunk("menu/fetchMenuList", async (id, {
   try {
     const res = await axios({
       url: `https://pos-restaurant-be-dev.azurewebsites.net/pos/data/dish_class/list_in_shop?shopId=${id}`,
-      headers: { Authorization: "Bearer KoGxkrVLzAgiuKEAcCl8vg==" },
+      headers: { Authorization: "Bearer WVye19fsNWoeyNL1ZCBmsQ==" },
     });
     if (res.error) throw res.error;
     console.log("fetchMenuList--------------", res);
@@ -40,7 +40,7 @@ export const saveMenu = createAsyncThunk("menu/saveMenu", async (menuObj, { reje
     const res = await axios({
       method: "post",
       url: "https://pos-restaurant-be-dev.azurewebsites.net/pos/data/dish_class/save",
-      headers: { Authorization: "Bearer KoGxkrVLzAgiuKEAcCl8vg==" },
+      headers: { Authorization: "Bearer WVye19fsNWoeyNL1ZCBmsQ==" },
       data: menuObj,
     });
     if (res.error) throw res.error;
@@ -56,7 +56,7 @@ export const deleteMenu = createAsyncThunk("menu/deleteMenu", async (id, { rejec
     const res = await axios({
       method: "delete",
       url: `https://pos-restaurant-be-dev.azurewebsites.net/pos/data/dish_class/delete/${id}`,
-      headers: { Authorization: "Bearer KoGxkrVLzAgiuKEAcCl8vg==" },
+      headers: { Authorization: "Bearer WVye19fsNWoeyNL1ZCBmsQ==" },
     });
     if (res.error) throw res.error;
     console.log("deleteMenu--------------", res);

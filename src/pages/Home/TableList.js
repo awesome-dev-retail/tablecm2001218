@@ -221,8 +221,10 @@ function TableList(props) {
           </div>
         ))}
         <div className="table-item add-table" onClick={() => handleSaveTable()}>
-          <PlusOutlined />
-          <div>Add Table</div>
+          <div className="add-icon">
+            <PlusOutlined />
+            {/* Add Table */}
+          </div>
           {/* <div>添加桌台</div> */}
         </div>
       </div>
