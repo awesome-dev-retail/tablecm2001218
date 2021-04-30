@@ -19,10 +19,12 @@ export default configureStore({
         "area/fetchAreaList/fulfilled",
         "area/saveArea/fulfilled",
         "area/deleteArea/fulfilled",
+
         "table/saveTable/fulfilled",
         "table/deleteTable/fulfilled",
         "table/fetchTableListInShop/fulfilled",
         "table/fetchTableListInArea/fulfilled",
+
         "menu/fetchMenuList/fulfilled",
         "menu/saveMenu/fulfilled",
         "menu/deleteMenu/fulfilled",

@@ -4,8 +4,11 @@ import { Badge, Modal, Button } from "antd";
 import { PlusOutlined, EditOutlined, DeleteOutlined, ExclamationCircleOutlined } from "@ant-design/icons";
 import { useSelector, useDispatch } from "react-redux";
 
-import { fetchAreaList, deleteArea } from "../../slices/areaSlice";
+import { fetchAreaList, deleteArea, getAreaId } from "../../slices/areaSlice";
 import { selectAreaList } from "../../slices/areaSlice";
+
+import { fetchTableListInArea } from "../../slices/tableSlice";
+
 import AddArea from "../../components/AddArea";
 
 export default function MenuList() {
@@ -18,6 +21,8 @@ export default function MenuList() {
   const [isAdmin, setIsAdmin] = useState(true);
   const [isUpdate, setIsUpdate] = useState(false);
   // let modalForm = null;
+
+  const dispatch = useDispatch();
 
   const { confirm } = Modal;
 
@@ -41,7 +46,6 @@ export default function MenuList() {
     });
   }
 
-  const dispatch = useDispatch();
   const areaListFromSlice = useSelector((state) => selectAreaList(state)) || [];
   console.log("areaListFromSlice", areaListFromSlice);
   // console.log(areaListFromSlice.data.list);
@@ -53,6 +57,10 @@ export default function MenuList() {
     // await setAreaList(areaListFromSlice);
     // console.log("useEffect");
   }, []);
+
+  const showTablesInArea = (areaId) => {
+    dispatch(fetchTableListInArea({ shopId: 1, areaId }));
+  };
 
   const handleSaveArea = (isUpdate, areaId, areaName) => {
     setShowArea(!showArea);
@@ -75,7 +83,12 @@ export default function MenuList() {
         </div>
         {areaListFromSlice.map((item) => {
           return (
-            <div key={item.id} className="menu-item">
+            <div
+              key={item.id}
+              className="menu-item"
+              onClick={() => {
+                showTablesInArea(item.id);
+              }}>
               {/* <Badge size="small" count={5} offset={[5]}> */}
               <div>{item.area_name}</div>
               {isAdmin && <EditOutlined onClick={() => handleSaveArea(true, item.id, item.area_name)} />}

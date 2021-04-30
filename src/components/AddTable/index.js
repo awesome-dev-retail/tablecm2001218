@@ -31,7 +31,7 @@ const Index = (props) => {
         // id: props.tableObj.id ? props.tableObj.id : null,
         cid: 1, // [required] int
         shop_id: 1, // [required] int
-        area_id: 47,
+        area_id: 71,
         table_name: res.tableName, // [required] string
         capacity: res.capacity * 1, // [required] int
         status: "Available",

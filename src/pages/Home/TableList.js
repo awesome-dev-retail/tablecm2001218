@@ -5,7 +5,8 @@ import { Badge, Modal, Button } from "antd";
 import { PlusOutlined, EditOutlined, DeleteOutlined, ExclamationCircleOutlined } from "@ant-design/icons";
 import { useSelector, useDispatch } from "react-redux";
 
-import { fetchTableListInShop, saveTable, deleteTable } from "../../slices/tableSlice";
+// import { selectAreaId } from "../../slices/areaSlice";
+import { fetchTableListInShop, fetchTableListInArea, saveTable, deleteTable } from "../../slices/tableSlice";
 import { selectTableList } from "../../slices/tableSlice";
 
 import AddTable from "../../components/AddTable";
@@ -145,6 +146,7 @@ function TableList(props) {
 
   const dispatch = useDispatch();
   const tableListFromSlice = useSelector((state) => selectTableList(state)) || [];
+  // const areaId = useSelector((state) => selectAreaId(state));
   console.log("tableListFromSlice", tableListFromSlice);
 
   useEffect(() => {
