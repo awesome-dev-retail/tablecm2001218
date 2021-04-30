@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Form, Input, Modal, Select } from "antd";
 import PropTypes from "prop-types";
 import { useSelector, useDispatch } from "react-redux";
 import { saveTable, fetchTableListInShop, fetchTableListInArea } from "../../slices/tableSlice";
+import { selectAreaList } from "../../slices/tableSlice";
+// import { saveTable, fetchTableListInShop, fetchTableListInArea } from "../../slices/tableSlice";
 import "./index.scss";
 
 const { Option } = Select;
@@ -10,7 +12,10 @@ const { Option } = Select;
 const Index = (props) => {
   const dispatch = useDispatch();
   const [form] = Form.useForm();
-
+  const areaCategoryFromSlice = useSelector((state) => state.Area.area) || [];
+  const areaCategoryName = areaCategoryFromSlice.map((item) => item.area_name);
+  // console.log("areaCategoryName", areaCategoryName);
+  // console.log("areaCategoryFromSlice", areaCategoryFromSlice);
   const hideModal = () => {
     form.resetFields();
     props.hideModel(false);
@@ -68,7 +73,7 @@ const Index = (props) => {
         <Form.Item colon={false} label="Area" name="areaName" rules={[{ required: true, message: "Please input area!" }]}>
           <Select placeholder="">
             {/* <Select placeholder="去设置"> */}
-            {["Hall", "First Floor", "Second Floor"].map((tableObj) => (
+            {areaCategoryName.map((tableObj) => (
               <Option key={tableObj} value={tableObj}>
                 {tableObj}
               </Option>

@@ -7,7 +7,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { fetchAreaList, deleteArea, getAreaId } from "../../slices/areaSlice";
 import { selectAreaList } from "../../slices/areaSlice";
 
-import { fetchTableListInArea } from "../../slices/tableSlice";
+import { fetchTableListInArea, fetchTableListInShop } from "../../slices/tableSlice";
+import { fetchTableList } from "../../slices/tableSlice";
 
 import AddArea from "../../components/AddArea";
 
@@ -61,6 +62,9 @@ export default function MenuList() {
   const showTablesInArea = (areaId) => {
     dispatch(fetchTableListInArea({ shopId: 1, areaId }));
   };
+  const showTablesInShop = () => {
+    dispatch(fetchTableListInShop(1));
+  };
 
   const handleSaveArea = (isUpdate, areaId, areaName) => {
     setShowArea(!showArea);
@@ -78,7 +82,8 @@ export default function MenuList() {
       <div className="menu-list">
         <div className="menu-item">
           {/* <Badge size="small" count={5} offset={[5]}> */}
-          <span>All Areas</span>
+          <div onClick={showTablesInShop}>All Areas</div>
+          {/* <span>All Areas</span> */}
           {/* </Badge> */}
         </div>
         {areaListFromSlice.map((item) => {
