@@ -36,10 +36,10 @@ export const fetchTableListInShop = createAsyncThunk("table/fetchTableListInShop
   }
 });
 
-export const fetchTableListInArea = createAsyncThunk("table/fetchTableListInArea", async (Obj, { rejectWithValue }) => {
+export const fetchTableListInArea = createAsyncThunk("table/fetchTableListInArea", async ({ shopId, areaId }, { rejectWithValue }) => {
   try {
     const res = await axios({
-      url: `https://pos-restaurant-be-dev.azurewebsites.net/pos/data/dinner_table/list_in_area?shopId=${Obj.shopId}&areaId=${Obj.areaId}`,
+      url: `https://pos-restaurant-be-dev.azurewebsites.net/pos/data/dinner_table/list_in_area?shopId=${shopId}&areaId=${areaId}`,
       headers: { Authorization: "Bearer q3ZNm0cVcXXUXvq9SIJduw==" },
     });
     if (res.error) throw res.error;

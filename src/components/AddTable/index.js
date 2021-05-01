@@ -13,7 +13,7 @@ const Index = (props) => {
   const dispatch = useDispatch();
   const [form] = Form.useForm();
   const areaCategoryFromSlice = useSelector((state) => state.Area.area) || [];
-  const areaCategoryName = areaCategoryFromSlice.map((item) => item.area_name);
+  // const areaCategoryName = areaCategoryFromSlice.map((item) => item.area_name);
   // console.log("areaCategoryName", areaCategoryName);
   // console.log("areaCategoryFromSlice", areaCategoryFromSlice);
   const hideModal = () => {
@@ -36,7 +36,8 @@ const Index = (props) => {
         // id: props.tableObj.id ? props.tableObj.id : null,
         cid: 1, // [required] int
         shop_id: 1, // [required] int
-        area_id: 71,
+        area_id: res.areaId,
+        // area_id: 71,
         table_name: res.tableName, // [required] string
         capacity: res.capacity * 1, // [required] int
         status: "Available",
@@ -45,7 +46,8 @@ const Index = (props) => {
       };
       console.log("tableObj", tableObj);
       await dispatch(saveTable(tableObj));
-      dispatch(fetchTableListInShop(1));
+      // dispatch(fetchTableListInShop(1));
+      dispatch(fetchTableListInArea({ shopId: 1, areaId: res.areaId }));
     });
   };
 
@@ -70,12 +72,12 @@ const Index = (props) => {
         <Form.Item colon={false} label="Table Name" name="tableName" rules={[{ required: true, message: "Please input table ID or name!" }]}>
           <Input placeholder="please input table ID or name, eg：A01" defaultValue={props.tableObj.id ? props.tableObj.table_name : ""} />
         </Form.Item>
-        <Form.Item colon={false} label="Area" name="areaName" rules={[{ required: true, message: "Please input area!" }]}>
+        <Form.Item colon={false} label="Area" name="areaId" rules={[{ required: true, message: "Please input area!" }]}>
           <Select placeholder="">
             {/* <Select placeholder="去设置"> */}
-            {areaCategoryName.map((tableObj) => (
-              <Option key={tableObj} value={tableObj}>
-                {tableObj}
+            {areaCategoryFromSlice.map((item) => (
+              <Option key={item.id} value={item.id}>
+                {item.area_name}
               </Option>
             ))}
           </Select>

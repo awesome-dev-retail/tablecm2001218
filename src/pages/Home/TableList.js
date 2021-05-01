@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import React, { Fragment, useEffect, useState } from "react";
 import { withRouter } from "react-router-dom";
-import { Badge, Modal, Button } from "antd";
+import { Badge, Modal, Button, message } from "antd";
 import { PlusOutlined, EditOutlined, DeleteOutlined, ExclamationCircleOutlined } from "@ant-design/icons";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -177,7 +177,7 @@ function TableList(props) {
     // setCapacity(capacity);
   };
 
-  function showDeleteConfirm(id) {
+  function showDeleteConfirm(table, areaId) {
     confirm({
       title: "Are you sure to delete this item?",
       icon: <ExclamationCircleOutlined />,
@@ -186,8 +186,12 @@ function TableList(props) {
       okType: "danger",
       cancelText: "No",
       async onOk() {
-        await dispatch(deleteTable(id));
-        await dispatch(fetchTableListInShop(1));
+        if (table.status === "Occupied") {
+          message.error("occupied table cannot be deleted!");
+          return;
+        }
+        await dispatch(deleteTable(table.id));
+        await dispatch(fetchTableListInArea({ shopId: 1, areaId }));
       },
       onCancel() {
         console.log("Cancel");
@@ -218,7 +222,7 @@ function TableList(props) {
             <div className="edit-delete">
               {isAdmin && <EditOutlined onClick={(event) => handleSaveTable(item)} />}
               {/* {isAdmin && <EditOutlined onClick={(event) => handleSaveTable(item.id, item.table_name, item.capacity)} />} */}
-              {isAdmin && <DeleteOutlined onClick={() => showDeleteConfirm(item.id)} />}
+              {isAdmin && <DeleteOutlined onClick={() => showDeleteConfirm(item, item.area_id)} />}
             </div>
           </div>
         ))}

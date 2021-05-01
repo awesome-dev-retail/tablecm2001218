@@ -3,11 +3,14 @@ import { Form, Input, Modal } from "antd";
 import PropTypes from "prop-types";
 import { useSelector, useDispatch } from "react-redux";
 import { saveArea, fetchAreaList } from "../../slices/areaSlice";
+import { selectAreaId } from "../../slices/areaSlice";
+import { fetchTableListInArea, fetchTableListInShop, deleteTable } from "../../slices/tableSlice";
 
 import "./index.scss";
 
 const Index = (props) => {
   const dispatch = useDispatch();
+  const areaIdFromSlice = useSelector((state) => selectAreaId(state));
   const [form] = Form.useForm();
   // const [isUpdate, setIsUpdate] = useState(false);
 
@@ -27,12 +30,13 @@ const Index = (props) => {
         cid: 1, // [required] int
         shop_id: 1, // [required] int
         area_name: res.areaName, // [required] string
-        // active: true, // [not required for creating]
+        active: true, // [not required for creating]
         // description: "The Hall Area",
       };
       console.log(areaObj);
       await dispatch(saveArea(areaObj));
       await dispatch(fetchAreaList(1));
+      await dispatch(fetchTableListInArea(areaIdFromSlice)); //to be add new areaId
     });
   };
 

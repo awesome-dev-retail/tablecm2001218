@@ -7,7 +7,7 @@ import axios from "axios";
 
 const initialState = {
   area: [],
-  // areaId: 0,
+  areaId: 0,
   addedArea: null,
   status: "",
   error: null,
@@ -71,11 +71,7 @@ export const deleteArea = createAsyncThunk("area/deleteArea", async (id, { rejec
 const AreaSlice = createSlice({
   name: "area",
   initialState,
-  reducers: {
-    // getAreaId(state, action) {
-    //   state.areaId = action.payload;
-    // },
-  },
+  reducers: {},
   extraReducers: {
     [fetchAreaList.pending]: (state) => {
       state.status = config.API_STATUS.LOADING;
@@ -97,7 +93,7 @@ const AreaSlice = createSlice({
     },
     [saveArea.fulfilled]: (state, action) => {
       state.status = config.API_STATUS.SUCCEEDED;
-      // state.area = action.payload;
+      state.areaId = action.payload.data.data.id;
       state.error = null;
       // state.token = action.payload.token;
       // CacheStorage.setItem(config.TOKEN_SYMBOL, action.payload.token);
@@ -128,6 +124,6 @@ const AreaSlice = createSlice({
 // export const { getAreaId } = AreaSlice.actions;
 
 export const selectAreaList = (state) => state.Area.area;
-// export const selectAreaId = (state) => state.Area.areaId;
+export const selectAreaId = (state) => state.Area.areaId;
 
 export default AreaSlice.reducer;

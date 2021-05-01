@@ -1,5 +1,5 @@
 import React, { Fragment, useState, useEffect } from "react";
-import { Badge, Modal, Button } from "antd";
+import { Badge, Modal, Button, message } from "antd";
 
 import { PlusOutlined, EditOutlined, DeleteOutlined, ExclamationCircleOutlined } from "@ant-design/icons";
 import { useSelector, useDispatch } from "react-redux";
@@ -7,8 +7,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { fetchAreaList, deleteArea, getAreaId } from "../../slices/areaSlice";
 import { selectAreaList } from "../../slices/areaSlice";
 
-import { fetchTableListInArea, fetchTableListInShop } from "../../slices/tableSlice";
-import { fetchTableList } from "../../slices/tableSlice";
+import { fetchTableListInArea, fetchTableListInShop, deleteTable } from "../../slices/tableSlice";
+import { selectTableList } from "../../slices/tableSlice";
 
 import AddArea from "../../components/AddArea";
 
@@ -24,10 +24,14 @@ export default function MenuList() {
   // let modalForm = null;
 
   const dispatch = useDispatch();
+  const areaListFromSlice = useSelector((state) => selectAreaList(state)) || [];
+  const tableListFromSlice = useSelector((state) => selectTableList(state)) || [];
+  // console.log("areaListFromSlice", areaListFromSlice);
+  console.log("tableListFromSlice", tableListFromSlice);
 
   const { confirm } = Modal;
 
-  function showDeleteConfirm(id) {
+  function showDeleteConfirm(areaId) {
     confirm({
       title: "Are you sure to delete this item?",
       icon: <ExclamationCircleOutlined />,
@@ -37,20 +41,24 @@ export default function MenuList() {
       cancelText: "No",
       async onOk() {
         // console.log("OK");
-        // console.log(id);
-        await dispatch(deleteArea(id));
+        // console.log(areaId);
+        dispatch(fetchTableListInArea({ shopId: 1, areaId }));
+        const occupiedTable = tableListFromSlice.find((item) => item.status === "Occupied");
+        if (occupiedTable) {
+          message.error("Please clear occupied table in this area first!");
+          return;
+        }
+        await dispatch(deleteArea(areaId));
         await dispatch(fetchAreaList(1));
+        tableListFromSlice.forEach((item) => dispatch(deleteTable(item.id)));
+        await dispatch(fetchTableListInShop(1));
+        // await dispatch(fetchTableListInArea(areaId));
       },
       onCancel() {
         console.log("Cancel");
       },
     });
   }
-
-  const areaListFromSlice = useSelector((state) => selectAreaList(state)) || [];
-  console.log("areaListFromSlice", areaListFromSlice);
-  // console.log(areaListFromSlice.data.list);
-  // setAreaList(areaListFromSlice.data.list);
 
   useEffect(async () => {
     await dispatch(fetchAreaList(1));
