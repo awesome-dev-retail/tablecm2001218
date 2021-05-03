@@ -25,7 +25,7 @@ export const fetchDishListInShop = createAsyncThunk("dish/fetchDishListInShop", 
   try {
     const res = await axios({
       url: `https://pos-restaurant-be-dev.azurewebsites.net/pos/data/dish/list_in_shop?shopId=${id}`,
-      headers: { Authorization: "Bearer q3ZNm0cVcXXUXvq9SIJduw==" },
+      headers: { Authorization: "Bearer NHda4r9TIoSCHicQQjvoSg==" },
     });
     if (res.error) throw res.error;
     console.log("fetchDishListInShop--------------", res);
@@ -36,27 +36,28 @@ export const fetchDishListInShop = createAsyncThunk("dish/fetchDishListInShop", 
   }
 });
 
-// export const fetchDishListInArea = createAsyncThunk("dish/fetchDishListInArea", async (shopId, { rejectWithValue }) => {
-//   try {
-//     const res = await axios({
-//       url: `https://pos-restaurant-be-dev.azurewebsites.net/pos/data/dinner_dish/list_in_area?shopId=${shopId}&areaId=${areaId}`,
-//       headers: { Authorization: "Bearer sPKrlv3_1C7xA48GC9NyxA==" },
-//     });
-//     if (res.error) throw res.error;
-//     console.log("fetchDishListInArea--------------", res);
+export const fetchDishListInMenu = createAsyncThunk("dish/fetchDishListInMenu", async (menuId, { rejectWithValue }) => {
+  try {
+    console.log("-------menuId-------", menuId);
+    const res = await axios({
+      url: `https://pos-restaurant-be-dev.azurewebsites.net/pos/data/dish/list_in_shop?classId=${menuId}`,
+      headers: { Authorization: "Bearer NHda4r9TIoSCHicQQjvoSg==" },
+    });
+    if (res.error) throw res.error;
+    console.log("fetchDishListInMenu--------------", res);
 
-//     return res;
-//   } catch (e) {
-//     return rejectWithValue(e.message);
-//   }
-// });
+    return res;
+  } catch (e) {
+    return rejectWithValue(e.message);
+  }
+});
 
 export const saveDish = createAsyncThunk("dish/saveDish", async (dishObj, { rejectWithValue }) => {
   try {
     const res = await axios({
       method: "post",
       url: "https://pos-restaurant-be-dev.azurewebsites.net/pos/data/dish/save",
-      headers: { Authorization: "Bearer q3ZNm0cVcXXUXvq9SIJduw==" },
+      headers: { Authorization: "Bearer NHda4r9TIoSCHicQQjvoSg==" },
       data: dishObj,
     });
     if (res.error) throw res.error;
@@ -72,7 +73,7 @@ export const deleteDish = createAsyncThunk("dish/deleteDish", async (id, { rejec
     const res = await axios({
       method: "delete",
       url: `https://pos-restaurant-be-dev.azurewebsites.net/pos/data/dish/delete/${id}`,
-      headers: { Authorization: "Bearer q3ZNm0cVcXXUXvq9SIJduw==" },
+      headers: { Authorization: "Bearer NHda4r9TIoSCHicQQjvoSg==" },
     });
     if (res.error) throw res.error;
     console.log("deleteDish--------------", res);
@@ -99,6 +100,21 @@ const DishSlice = createSlice({
       // CacheStorage.setItem(config.TOKEN_IS_ADMIN, false);
     },
     [fetchDishListInShop.rejected]: (state, action) => {
+      state.status = config.API_STATUS.FAILED;
+      // message.error(action.payload);
+    },
+    [fetchDishListInMenu.pending]: (state) => {
+      state.status = config.API_STATUS.LOADING;
+    },
+    [fetchDishListInMenu.fulfilled]: (state, action) => {
+      state.status = config.API_STATUS.SUCCEEDED;
+      state.dish = action.payload.data.data.list;
+      state.error = null;
+      // state.token = action.payload.token;
+      // CacheStorage.setItem(config.TOKEN_SYMBOL, action.payload.token);
+      // CacheStorage.setItem(config.TOKEN_IS_ADMIN, false);
+    },
+    [fetchDishListInMenu.rejected]: (state, action) => {
       state.status = config.API_STATUS.FAILED;
       // message.error(action.payload);
     },

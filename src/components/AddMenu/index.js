@@ -1,13 +1,18 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Form, Input, Modal } from "antd";
 import PropTypes from "prop-types";
 import { useSelector, useDispatch } from "react-redux";
 import { saveMenu, fetchMenuList } from "../../slices/menuSlice";
+import { selectMenuId } from "../../slices/menuSlice";
+import { fetchDishListInShop, fetchDishListInMenu } from "../../slices/dishSlice";
 
 import "./index.scss";
 
 const Index = (props) => {
   const dispatch = useDispatch();
+  const menuIdFromSlice = useSelector((state) => selectMenuId(state));
+  console.log("menuIdFromSlice", menuIdFromSlice);
+
   const [form] = Form.useForm();
   // const [isUpdate, setIsUpdate] = useState(false);
 
@@ -29,9 +34,12 @@ const Index = (props) => {
         // active: true, // [not required for creating]
         // description: "The Hall Menu",
       };
-      // console.log("menuObj", menuObj);
+      console.log("menuObj", menuObj);
       await dispatch(saveMenu(menuObj));
       await dispatch(fetchMenuList(1));
+      // await dispatch(fetchDishListInShop(1));
+      await dispatch(fetchDishListInMenu(1)); //not work
+      // await dispatch(fetchDishListInMenu(menuIdFromSlice));
     });
   };
 

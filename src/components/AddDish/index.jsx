@@ -4,12 +4,16 @@ import PropTypes from "prop-types";
 
 import { useSelector, useDispatch } from "react-redux";
 import { saveDish, fetchDishListInShop } from "../../slices/dishSlice";
+import { fetchDishListInMenu } from "../../slices/dishSlice";
+import { selectMenuList } from "../../slices/menuSlice";
 
 import "./index.scss";
 
 const { Option } = Select;
 const Index = (props) => {
   const dispatch = useDispatch();
+  const MenuListFromSlice = useSelector((state) => selectMenuList(state));
+
   const [form] = Form.useForm();
   const hideModal = () => {
     form.validateFields().then((res) => {
@@ -27,7 +31,7 @@ const Index = (props) => {
         // id: 5,
         // id: props.id ? props.id : null,
         cid: 1, // [required] int
-        class_id: 1, // [required] int
+        class_id: res.menuId * 1, // [required] int
         dish_code: Date.now() + "",
         description: res.name, // [required] string
         unit_price: res.price * 1, // [required] int
@@ -35,7 +39,7 @@ const Index = (props) => {
       };
       console.log("dishObj", dishObj);
       await dispatch(saveDish(dishObj));
-      await dispatch(fetchDishListInShop(1));
+      await dispatch(fetchDishListInMenu(res.menuId));
     });
   };
 
@@ -62,11 +66,11 @@ const Index = (props) => {
           <Form.Item label="Dish Name" colon={false} name="name" rules={[{ required: true, message: "Please input dish name!" }]}>
             <Input placeholder="please input dish name" />
           </Form.Item>
-          <Form.Item label="Dish Category" colon={false} name="type" rules={[{ required: true, message: "Please input dish category!" }]}>
+          <Form.Item label="Dish Category" colon={false} name="menuId" rules={[{ required: true, message: "Please input dish category!" }]}>
             <Select>
-              {["STARTERS", "SIDE DISHES", "MAIN COURSE", "DESSERT"].map((item) => (
-                <Option key={item} value={item}>
-                  {item}
+              {MenuListFromSlice.map((item) => (
+                <Option key={item} value={item.id}>
+                  {item.class_name}
                 </Option>
               ))}
             </Select>

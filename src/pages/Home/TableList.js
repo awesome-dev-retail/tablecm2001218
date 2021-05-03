@@ -16,6 +16,7 @@ function TableList(props) {
 
   const [table, setTable] = useState({});
 
+  const [time, setTime] = useState(0);
   // const [tableId, setTableId] = useState(0);
   // const [tableName, setTableName] = useState("");
   // const [capacity, setCapacity] = useState(0);
@@ -162,9 +163,13 @@ function TableList(props) {
     obj.status = "Occupied";
     console.log("obj", obj);
     await dispatch(saveTable(obj));
-    dispatch(fetchTableListInShop(1));
+    // dispatch(fetchTableListInShop(1));
     // eslint-disable-next-line react/prop-types
-    props.history.push("/order");
+    // props.history.push("/order/1");
+    props.history.push(`/order/${tableObj.id}`);
+    // setInterval(() => {
+    //   setTime((time) => time + 1);
+    // }, 1000);
   };
 
   const handleSaveTable = (tableObj) => {
@@ -215,8 +220,10 @@ function TableList(props) {
               {item.combination && <div>Share {item.combination} Tables</div>}
               {/* {item.combination && <div>拼{item.combination}桌</div>} */}
               {item.status === "Available" && <div className="wait-plan-order-text">To be ordered</div>}
+              {item.status === "Occupied" && <div className="wait-plan-order-text">$100</div>}
               <div>
-                {item.tag} {item.time && <span>{item.time}</span>}
+                <span>0/{item.capacity}</span>
+                <span></span>
               </div>
             </div>
             <div className="edit-delete">

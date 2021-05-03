@@ -213,6 +213,11 @@
           box-sizing: border-box;
           // height: 40px;
           flex-basis: 80%;
+          div:last-child {
+            span {
+              margin-right: 15px;
+            }
+          }
         }
         .table-id {
           font-weight: bold;

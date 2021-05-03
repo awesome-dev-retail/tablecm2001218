@@ -12,7 +12,7 @@ import moment from "moment";
 // import "./index.less";
 import "./index.scss";
 
-const Order = () => {
+const Order = (props) => {
   // console.log("orderpage");
   const timerRef = useRef();
   // const [tableList, setTableList] = useState(tableListData)
@@ -21,6 +21,9 @@ const Order = () => {
   // const [week, setCurrentWeek] = useState()
   // const [showTableInfo, setShowTableInfo] = useState(false)
   const [showMore, setShowMore] = useState(false);
+
+  // eslint-disable-next-line react/prop-types
+  console.log("props.match.params", props.match.params);
 
   // useEffect(() => {
   //   setCurrentDate(moment().format('MM月DD日'))

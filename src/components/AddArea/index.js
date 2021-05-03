@@ -33,10 +33,11 @@ const Index = (props) => {
         active: true, // [not required for creating]
         // description: "The Hall Area",
       };
-      console.log(areaObj);
+      // console.log(areaObj);
       await dispatch(saveArea(areaObj));
       await dispatch(fetchAreaList(1));
-      await dispatch(fetchTableListInArea(areaIdFromSlice)); //to be add new areaId
+      console.log("---------areaIdFromSlice-----", areaIdFromSlice);
+      await dispatch(fetchTableListInArea(areaIdFromSlice));
     });
   };
 

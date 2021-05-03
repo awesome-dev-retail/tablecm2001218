@@ -7,6 +7,7 @@ import axios from "axios";
 
 const initialState = {
   menu: [],
+  menuId: 0,
   // addedMenu: null,
   status: "",
   error: null,
@@ -25,7 +26,7 @@ export const fetchMenuList = createAsyncThunk("menu/fetchMenuList", async (id, {
   try {
     const res = await axios({
       url: `https://pos-restaurant-be-dev.azurewebsites.net/pos/data/dish_class/list_in_shop?shopId=${id}`,
-      headers: { Authorization: "Bearer q3ZNm0cVcXXUXvq9SIJduw==" },
+      headers: { Authorization: "Bearer NHda4r9TIoSCHicQQjvoSg==" },
     });
     if (res.error) throw res.error;
     console.log("fetchMenuList--------------", res);
@@ -40,7 +41,7 @@ export const saveMenu = createAsyncThunk("menu/saveMenu", async (menuObj, { reje
     const res = await axios({
       method: "post",
       url: "https://pos-restaurant-be-dev.azurewebsites.net/pos/data/dish_class/save",
-      headers: { Authorization: "Bearer q3ZNm0cVcXXUXvq9SIJduw==" },
+      headers: { Authorization: "Bearer NHda4r9TIoSCHicQQjvoSg==" },
       data: menuObj,
     });
     if (res.error) throw res.error;
@@ -56,7 +57,7 @@ export const deleteMenu = createAsyncThunk("menu/deleteMenu", async (id, { rejec
     const res = await axios({
       method: "delete",
       url: `https://pos-restaurant-be-dev.azurewebsites.net/pos/data/dish_class/delete/${id}`,
-      headers: { Authorization: "Bearer q3ZNm0cVcXXUXvq9SIJduw==" },
+      headers: { Authorization: "Bearer NHda4r9TIoSCHicQQjvoSg==" },
     });
     if (res.error) throw res.error;
     console.log("deleteMenu--------------", res);
@@ -69,7 +70,11 @@ export const deleteMenu = createAsyncThunk("menu/deleteMenu", async (id, { rejec
 const MenuSlice = createSlice({
   name: "menu",
   initialState,
-  reducers: {},
+  reducers: {
+    setMenuIdInSlice(state, action) {
+      state.menuId = action.payload;
+    },
+  },
   extraReducers: {
     [fetchMenuList.pending]: (state) => {
       state.status = config.API_STATUS.LOADING;
@@ -91,7 +96,7 @@ const MenuSlice = createSlice({
     },
     [saveMenu.fulfilled]: (state, action) => {
       state.status = config.API_STATUS.SUCCEEDED;
-      // state.menu = action.payload;
+      state.menuId = action.payload.data.data.id;
       state.error = null;
       // state.token = action.payload.token;
       // CacheStorage.setItem(config.TOKEN_SYMBOL, action.payload.token);
@@ -119,6 +124,9 @@ const MenuSlice = createSlice({
   },
 });
 
+export const { setMenuIdInSlice } = MenuSlice.actions;
+
 export const selectMenuList = (state) => state.Menu.menu;
+export const selectMenuId = (state) => state.Menu.menuId;
 
 export default MenuSlice.reducer;

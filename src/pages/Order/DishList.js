@@ -5,8 +5,10 @@ import { Badge, Modal, Button } from "antd";
 import { PlusOutlined, EditOutlined, DeleteOutlined, ExclamationCircleOutlined } from "@ant-design/icons";
 import { useSelector, useDispatch } from "react-redux";
 
-import { fetchDishListInShop, deleteDish } from "../../slices/dishSlice";
+import { fetchDishListInShop, fetchDishListInMenu, deleteDish } from "../../slices/dishSlice";
 import { selectDishList } from "../../slices/dishSlice";
+
+import { selectMenuId } from "../../slices/menuSlice";
 
 import AddDish from "../../components/AddDish";
 
@@ -143,6 +145,8 @@ function DishList(props) {
   const dishListFromSlice = useSelector((state) => selectDishList(state)) || [];
   console.log("dishListFromSlice", dishListFromSlice);
 
+  const menuIdFromSlice = useSelector((state) => selectMenuId(state));
+
   useEffect(() => {
     dispatch(fetchDishListInShop(1));
   }, []);
@@ -163,7 +167,7 @@ function DishList(props) {
     setPrice(price);
   };
 
-  function showDeleteConfirm(id) {
+  function showDeleteConfirm(dish) {
     confirm({
       title: "Are you sure to delete this item?",
       icon: <ExclamationCircleOutlined />,
@@ -172,8 +176,9 @@ function DishList(props) {
       okType: "danger",
       cancelText: "No",
       async onOk() {
-        await dispatch(deleteDish(id));
-        await dispatch(fetchDishListInShop(1));
+        await dispatch(deleteDish(dish.id));
+        // await dispatch(fetchDishListInShop(1));
+        await dispatch(fetchDishListInMenu(dish.class_id));
       },
       onCancel() {
         console.log("Cancel");
@@ -205,7 +210,7 @@ function DishList(props) {
             </div>
             <div className="edit-delete">
               {isAdmin && <EditOutlined onClick={(event) => handleSaveDish(item.id, item.description, item.unit_price)} />}
-              {isAdmin && <DeleteOutlined onClick={() => showDeleteConfirm(item.id)} />}
+              {isAdmin && <DeleteOutlined onClick={() => showDeleteConfirm(item)} />}
             </div>
           </div>
         ))}

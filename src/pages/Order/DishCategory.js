@@ -5,7 +5,11 @@ import { PlusOutlined, EditOutlined, DeleteOutlined, ExclamationCircleOutlined }
 import { useSelector, useDispatch } from "react-redux";
 
 import { fetchMenuList, deleteMenu } from "../../slices/menuSlice";
-import { selectMenuList } from "../../slices/menuSlice";
+import { selectMenuList, setMenuIdInSlice } from "../../slices/menuSlice";
+
+import { fetchDishListInMenu, fetchDishListInShop, deleteDish } from "../../slices/dishSlice";
+import { selectDishList } from "../../slices/dishSlice";
+
 import AddMenu from "../../components/AddMenu";
 
 export default function MenuList() {
@@ -21,11 +25,20 @@ export default function MenuList() {
 
   const dispatch = useDispatch();
   const menuListFromSlice = useSelector((state) => selectMenuList(state)) || [];
-  console.log("menuListFromSlice", menuListFromSlice);
+
+  // const menuIdFromSlice = useSelector((state) => selectMenuId(state));
+
+  const dishListFromSlice = useSelector((state) => selectDishList(state)) || [];
+  // console.log("menuListFromSlice", menuListFromSlice);
 
   useEffect(async () => {
     await dispatch(fetchMenuList(1));
   }, []);
+
+  const showDishesInMenu = (menuId) => {
+    dispatch(setMenuIdInSlice(menuId));
+    dispatch(fetchDishListInMenu(menuId));
+  };
 
   function showDeleteConfirm(id) {
     confirm({
@@ -40,12 +53,19 @@ export default function MenuList() {
         // console.log(id);
         await dispatch(deleteMenu(id));
         await dispatch(fetchMenuList(1));
+        dishListFromSlice.forEach((item) => dispatch(deleteDish(item.id)));
+        await dispatch(fetchDishListInShop(1));
       },
       onCancel() {
         console.log("Cancel");
       },
     });
   }
+
+  const showDishesInShop = () => {
+    dispatch(fetchDishListInShop(1));
+  };
+
   const handleSaveMenu = (isUpdate, menuId, menuName) => {
     setShowMenu(!showMenu);
     if (isUpdate) {
@@ -62,12 +82,17 @@ export default function MenuList() {
       <div className="menu-list">
         <div className="menu-item">
           {/* <Badge size="small" count={5} offset={[5]}> */}
-          <span>All Menus</span>
+          <div onClick={showDishesInShop}>All Menus</div>
           {/* </Badge> */}
         </div>
         {menuListFromSlice.map((item) => {
           return (
-            <div key={item.id} className="menu-item">
+            <div
+              key={item.id}
+              className="menu-item"
+              onClick={() => {
+                showDishesInMenu(item.id);
+              }}>
               {/* <Badge size="small" count={5} offset={[5]}> */}
               <div>{item.class_name}</div>
               {isAdmin && <EditOutlined onClick={() => handleSaveMenu(true, item.id, item.class_name)} />}
