@@ -7,6 +7,7 @@ import axios from "axios";
 
 const initialState = {
   dish: [],
+  dishObjInOrder: [],
   // addedDish: null,
   status: "",
   error: null,
@@ -25,7 +26,7 @@ export const fetchDishListInShop = createAsyncThunk("dish/fetchDishListInShop", 
   try {
     const res = await axios({
       url: `https://pos-restaurant-be-dev.azurewebsites.net/pos/data/dish/list_in_shop?shopId=${id}`,
-      headers: { Authorization: "Bearer NHda4r9TIoSCHicQQjvoSg==" },
+      headers: { Authorization: "Bearer 4xIrv0v6F5fXazypjM0zZg==" },
     });
     if (res.error) throw res.error;
     console.log("fetchDishListInShop--------------", res);
@@ -41,7 +42,7 @@ export const fetchDishListInMenu = createAsyncThunk("dish/fetchDishListInMenu", 
     console.log("-------menuId-------", menuId);
     const res = await axios({
       url: `https://pos-restaurant-be-dev.azurewebsites.net/pos/data/dish/list_in_shop?classId=${menuId}`,
-      headers: { Authorization: "Bearer NHda4r9TIoSCHicQQjvoSg==" },
+      headers: { Authorization: "Bearer 4xIrv0v6F5fXazypjM0zZg==" },
     });
     if (res.error) throw res.error;
     console.log("fetchDishListInMenu--------------", res);
@@ -57,7 +58,7 @@ export const saveDish = createAsyncThunk("dish/saveDish", async (dishObj, { reje
     const res = await axios({
       method: "post",
       url: "https://pos-restaurant-be-dev.azurewebsites.net/pos/data/dish/save",
-      headers: { Authorization: "Bearer NHda4r9TIoSCHicQQjvoSg==" },
+      headers: { Authorization: "Bearer 4xIrv0v6F5fXazypjM0zZg==" },
       data: dishObj,
     });
     if (res.error) throw res.error;
@@ -73,7 +74,7 @@ export const deleteDish = createAsyncThunk("dish/deleteDish", async (id, { rejec
     const res = await axios({
       method: "delete",
       url: `https://pos-restaurant-be-dev.azurewebsites.net/pos/data/dish/delete/${id}`,
-      headers: { Authorization: "Bearer NHda4r9TIoSCHicQQjvoSg==" },
+      headers: { Authorization: "Bearer 4xIrv0v6F5fXazypjM0zZg==" },
     });
     if (res.error) throw res.error;
     console.log("deleteDish--------------", res);
@@ -86,7 +87,11 @@ export const deleteDish = createAsyncThunk("dish/deleteDish", async (id, { rejec
 const DishSlice = createSlice({
   name: "dish",
   initialState,
-  reducers: {},
+  reducers: {
+    setDishObjInOrder(state, action) {
+      state.dishObjInOrder.push(action.payload);
+    },
+  },
   extraReducers: {
     [fetchDishListInShop.pending]: (state) => {
       state.status = config.API_STATUS.LOADING;
@@ -167,6 +172,9 @@ const DishSlice = createSlice({
   },
 });
 
+export const { setDishObjInOrder } = DishSlice.actions;
+
 export const selectDishList = (state) => state.Dish.dish;
+export const selectDishObjInOrder = (state) => state.Dish.dishObjInOrder;
 
 export default DishSlice.reducer;

@@ -24,6 +24,7 @@ export default configureStore({
         "table/deleteTable/fulfilled",
         "table/fetchTableListInShop/fulfilled",
         "table/fetchTableListInArea/fulfilled",
+        "table/fetchTableById/fulfilled",
 
         "menu/fetchMenuList/fulfilled",
         "menu/saveMenu/fulfilled",

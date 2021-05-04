@@ -11,7 +11,7 @@ import "./index.scss";
 const Index = (props) => {
   const dispatch = useDispatch();
   const menuIdFromSlice = useSelector((state) => selectMenuId(state));
-  console.log("menuIdFromSlice", menuIdFromSlice);
+  // console.log("menuIdFromSlice", menuIdFromSlice);
 
   const [form] = Form.useForm();
   // const [isUpdate, setIsUpdate] = useState(false);
@@ -34,7 +34,7 @@ const Index = (props) => {
         // active: true, // [not required for creating]
         // description: "The Hall Menu",
       };
-      console.log("menuObj", menuObj);
+      // console.log("menuObj", menuObj);
       await dispatch(saveMenu(menuObj));
       await dispatch(fetchMenuList(1));
       // await dispatch(fetchDishListInShop(1));

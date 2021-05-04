@@ -161,7 +161,7 @@ function TableList(props) {
   const redirectToOrder = async (tableObj) => {
     const obj = Object.assign({}, tableObj);
     obj.status = "Occupied";
-    console.log("obj", obj);
+    // console.log("obj", obj);
     await dispatch(saveTable(obj));
     // dispatch(fetchTableListInShop(1));
     // eslint-disable-next-line react/prop-types
@@ -199,7 +199,7 @@ function TableList(props) {
         await dispatch(fetchTableListInArea({ shopId: 1, areaId }));
       },
       onCancel() {
-        console.log("Cancel");
+        // console.log("Cancel");
       },
     });
   }

@@ -27,7 +27,7 @@ const Index = (props) => {
 
   const addTable = () => {
     form.validateFields().then(async (res) => {
-      console.log("addTable---------------------", res);
+      // console.log("addTable---------------------", res);
       form.resetFields();
       props.hideModel(false);
       const tableObj = {
@@ -44,7 +44,7 @@ const Index = (props) => {
         active: true, // [not required for creating]
         // description: "The Hall Area",
       };
-      console.log("tableObj", tableObj);
+      // console.log("tableObj", tableObj);
       await dispatch(saveTable(tableObj));
       // dispatch(fetchTableListInShop(1));
       dispatch(fetchTableListInArea({ shopId: 1, areaId: res.areaId }));

@@ -5,7 +5,7 @@ import { Badge, Modal, Button } from "antd";
 import { PlusOutlined, EditOutlined, DeleteOutlined, ExclamationCircleOutlined } from "@ant-design/icons";
 import { useSelector, useDispatch } from "react-redux";
 
-import { fetchDishListInShop, fetchDishListInMenu, deleteDish } from "../../slices/dishSlice";
+import { fetchDishListInShop, fetchDishListInMenu, deleteDish, setDishObjInOrder } from "../../slices/dishSlice";
 import { selectDishList } from "../../slices/dishSlice";
 
 import { selectMenuId } from "../../slices/menuSlice";
@@ -143,7 +143,7 @@ function DishList(props) {
 
   const dispatch = useDispatch();
   const dishListFromSlice = useSelector((state) => selectDishList(state)) || [];
-  console.log("dishListFromSlice", dishListFromSlice);
+  // console.log("dishListFromSlice", dishListFromSlice);
 
   const menuIdFromSlice = useSelector((state) => selectMenuId(state));
 
@@ -181,13 +181,13 @@ function DishList(props) {
         await dispatch(fetchDishListInMenu(dish.class_id));
       },
       onCancel() {
-        console.log("Cancel");
+        // console.log("Cancel");
       },
     });
   }
 
-  const addToOrderList = () => {
-    return;
+  const addToOrderList = async (dish) => {
+    await dispatch(setDishObjInOrder(dish));
   };
 
   return (
@@ -198,7 +198,7 @@ function DishList(props) {
             {/* <div key={item.id} className={`dish-item ${getClass(item.status)}`} onClick={() => setShowDishInfo(true)}> */}
             <div
               onClick={() => {
-                addToOrderList();
+                addToOrderList(item);
               }}>
               <p className="table-id">{item.description}</p>
               {item.unit_price && <div className="money">${item.unit_price}</div>}
@@ -217,7 +217,6 @@ function DishList(props) {
         <div className="table-item add-table" onClick={() => handleSaveDish()}>
           <PlusOutlined />
           <div>Add Dish</div>
-          {/* <div>添加桌台</div> */}
         </div>
       </div>
       <AddDish visible={showDish} hideModel={setShowDish} id={dishId} description={description} price={price}></AddDish>

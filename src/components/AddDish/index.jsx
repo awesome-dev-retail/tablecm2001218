@@ -37,7 +37,7 @@ const Index = (props) => {
         unit_price: res.price * 1, // [required] int
         UOM: "EACH",
       };
-      console.log("dishObj", dishObj);
+      // console.log("dishObj", dishObj);
       await dispatch(saveDish(dishObj));
       await dispatch(fetchDishListInMenu(res.menuId));
     });

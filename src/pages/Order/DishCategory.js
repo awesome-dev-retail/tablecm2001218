@@ -57,7 +57,7 @@ export default function MenuList() {
         await dispatch(fetchDishListInShop(1));
       },
       onCancel() {
-        console.log("Cancel");
+        // console.log("Cancel");
       },
     });
   }
