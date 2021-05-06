@@ -1,0 +1,51 @@
+.add-table-container {
+  .ant-modal-header {
+    border-bottom: none;
+  }
+
+  .ant-modal-body {
+    padding: 20px 0 0;
+    width: 90%;
+    margin: 0 auto;
+    .ant-row {
+      padding-bottom: 10px;
+      margin-bottom: 10px;
+      border-bottom: 1px solid #efefef;
+      .ant-input,
+      .ant-select-selector {
+        border: none;
+        text-align: right;
+        box-shadow: none;
+      }
+    }
+    // .ant-form-item-control {
+    //   width: 300px;
+    // }
+    .ant-form-item-label {
+      width: 100px;
+    }
+  }
+  .ant-modal-footer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    border: none;
+    div {
+      cursor: pointer;
+      height: 40px;
+      line-height: 40px;
+      text-align: center;
+      padding: 0 20px;
+      margin-right: 10px;
+      border-radius: 2px;
+      &:first-of-type {
+        border: 1px solid rgb(234, 126, 82);
+        color: rgb(234, 126, 82);
+      }
+      &:last-of-type {
+        background: rgb(234, 126, 82);
+        color: #fff;
+      }
+    }
+  }
+}
