@@ -1,0 +1,23 @@
+.counter-container {
+  user-select: none;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  .reduce,
+  .add {
+    cursor: pointer;
+    font-weight: 400;
+    height: 40px;
+    line-height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    border: 1px solid #efefef;
+    font-size: 20px;
+    color: #535353;
+  }
+  .count {
+    margin: 10px 0;
+  }
+}
